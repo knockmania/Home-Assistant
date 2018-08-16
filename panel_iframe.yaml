@@ -1,0 +1,25 @@
+####################################################
+#                                                  #
+#                    Panel Iframe                  #
+#                                                  #
+####################################################
+
+  dashboard:
+    title: 'HADashboard'
+    url: 'http://192.168.1.2:5050/main'
+    icon: mdi:view-dashboard-variant
+
+  plex:
+    title: 'Plex'
+    url: 'http://192.168.1.13:32400'
+    icon: mdi:plex
+
+  icons:
+    title: 'MDI Icons'
+    url: https://materialdesignicons.com/
+    icon: mdi:emoticon-devil
+
+  torrent:
+    title: 'Torrent'
+    url: http://192.168.1.13:9091/transmission/web/
+    icon: mdi:briefcase-download

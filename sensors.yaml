@@ -1,0 +1,184 @@
+####################################################
+#                                                  #
+#                      SENSORS                     #
+#                                                  #
+####################################################
+  
+  - platform: plex
+    host: 192.168.1.13
+    port: 32400
+    username: !secret plex_username
+    password: !secret plex_password
+
+  - platform: darksky
+    api_key: 25a89cfb36fa890021ca20fdd434d0a8
+    update_interval: 300
+    forecast:
+      - 1
+    monitored_conditions:
+      - temperature
+      - temperature_min
+      - temperature_max
+      - apparent_temperature
+      - wind_speed
+      - humidity
+      - precip_probability
+      - precip_intensity
+      - pressure
+      - wind_bearing
+      - icon
+      - precip_type
+      - precip_intensity
+      - precip_probability
+      - precip_accumulation
+      - daily_summary
+
+  - platform: template
+    sensors:
+      spotify_volume:
+        friendly_name: "Spotify Volume"
+        value_template: "{{ states.media_player.spotify.attributes.volume_level }}"
+
+  - platform: template
+    sensors:
+      spotify_shuffle:
+        friendly_name: "Spotify Shuffle"
+        value_template: "{{ states.media_player.spotify.attributes.shuffle }}"
+
+  - platform: template
+    sensors:
+      spotify_source:
+        friendly_name: "Spotify Source"
+        value_template: "{{ states.media_player.spotify.attributes.source }}"
+
+  - platform: yr
+
+  - platform: command_line
+    name: Tasmota Version
+    command: "mosquitto_sub -h sonoff.maddox.co.uk -t '#' -C 1"
+
+  - platform: sql
+    db_url: mysql://hass:norkrA3815@localhost/homeassistant
+    queries:
+      - name: DB Size
+        query: 'SELECT table_schema "homeassistant", Round(Sum(data_length + index_length) / 1024 / 1024, 1) "value" FROM information_schema.tables WHERE table_schema="homeassistant" GROUP BY table_schema'
+        column: 'value'
+        unit_of_measurement: MB
+
+  - platform: mqtt
+    state_topic: '/sensorbed/Temp_Humid/Temperature'
+    name: 'Bedroom Temperature'
+    unit_of_measurement: '°C'
+
+  - platform: mqtt
+    state_topic: '/sensorbed/Temp_Humid/Humidity'
+    name: 'Bedroom Humidity'
+    unit_of_measurement: '%'
+
+  - platform: mqtt
+    state_topic: '/sensorcloset/Temp_Humid/Temperature'
+    name: 'Closet Temperature'
+    unit_of_measurement: '°C'
+
+  - platform: mqtt
+    state_topic: '/sensorcloset/Temp_Humid/Humidity'
+    name: 'Closet Humidity'
+    unit_of_measurement: '%'
+
+  - platform: mqtt
+    state_topic: '/sensorhall/Temp_Humid/Temperature'
+    name: 'Hall Temperature'
+    unit_of_measurement: '°C'
+
+  - platform: mqtt
+    state_topic: '/sensorhall/Temp_Humid/Humidity'
+    name: 'Hall Humidity'
+    unit_of_measurement: '%'
+
+  - platform: mqtt
+    state_topic: '/sensorlr/Temp_Humid/Temperature'
+    name: 'Living Room Temperature'
+    unit_of_measurement: '°C'
+
+  - platform: mqtt
+    state_topic: '/sensorlr/Temp_Humid/Humidity'
+    name: 'Living Room Humidity'
+    unit_of_measurement: '%'
+
+  - platform: airvisual
+    api_key: 4FDnvW6hRPrWeoQ66
+    monitored_conditions:
+      - us
+
+  - platform: yweather
+    monitored_conditions:
+      - weather
+      - temperature
+
+  - platform: systemmonitor
+    resources:
+      - type: disk_use_percent
+        arg: /home
+      - type: processor_use
+      - type: memory_use_percent
+      - type: last_boot
+      - type: since_last_boot
+
+  - platform: speedtest
+    minute:
+      - 0
+      - 5
+    monitored_conditions:
+      - download
+      - upload
+      - ping
+
+  - platform: version
+    name: Installed Version
+
+  - platform: scrape
+    resource: https://www.home-assistant.io
+    name: Latest Release
+    select: ".current-version h1"
+    value_template: '{{ value.split(":")[1] }}'
+
+  - platform: command_line    
+    name: "HA Uptime"
+    command: echo "$(($(date +%s) - $(date -d "$(head -n1 /home/ha/.homeassistant/home-assistant.log | cut -d' ' -f-2)" +%s)))"
+    scan_interval: 720
+    value_template: >-
+      {% set uptime = value | int %}
+      {% set seconds = uptime % 60 %}
+      {% set minutes = ((uptime % 3600) / 60) | int %}
+      {% set hours = ((uptime % 86400) / 3600) | int %}
+      {% set days = (uptime / 86400) | int %}
+      {%- if days > 0 -%}
+        {%- if days == 1 -%}
+          1 day
+        {%- else -%}
+          {{ days }} days
+        {%- endif -%}
+        {{ ', ' }}
+      {%- endif -%}
+      {{ '%02d' % hours }}:{{ '%02d' % minutes }}
+
+  - platform: template
+    sensors:
+      since_last_boot_templated:
+        value_template: >-
+          {%- set slb = states.sensor.since_last_boot.state.split(' ') -%}
+          {%- set count = slb | length -%}
+          {%- set hms = slb[count - 1] -%}
+          {%- set hms_trimmed = hms.split('.')[0] -%}
+          {%- set hms_split = hms_trimmed.split(':') -%}
+          {%- set hours = hms_split[0] | int -%}
+          {%- if count == 3 -%}
+            {{ slb[0] ~ ' ' ~ slb[1] ~ ' ' }}
+          {%- endif -%}
+          {%- if hours > 0 -%}
+            {%- if hours == 1 -%}
+              1 hour
+            {%- else -%}
+              {{ hours }} hours
+            {%- endif -%}
+          {%- endif -%} 

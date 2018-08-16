@@ -1,0 +1,22 @@
+####################################################
+#                                                  #
+#                        IOS                       #
+#                                                  #
+####################################################
+
+  push:
+    categories:
+      - name: lights
+        identifier: lights
+        actions:
+          - identifier: LIGHTSOFF
+            title: "Turn Them Off"
+            activationMode: 'background'
+            authenticationRequires: no
+            destructive: yes
+            behavior: 'default'
+          - identifier: 'LIGHTSON'
+            title: 'Leave Them On'
+            activationMode: 'background'
+            authenticationRequired: no
+            destructive: no

@@ -1,0 +1,12 @@
+appdaemon:
+  disable_apps: 1
+  threads: 10
+  plugins:
+    HASS:
+      type: hass
+      ha_url: http://192.168.1.2:8123
+      ha_key: !secret http_api_password
+hadashboard:
+  dash_url: http://192.168.1.2:5050
+  dash_password: !secret http_api_password
+  dashboard_dir: /home/homeassistant/.homeassistant/dashboards

@@ -1,0 +1,254 @@
+####################################################
+#                                                  #
+#                      LIGHTS                      #
+#                                                  #
+####################################################
+
+####################################################
+#                        WC                        #
+####################################################
+
+  - platform: mqtt
+    name: "WC"
+    command_topic: "cmnd/hall_wc/power2"
+    state_topic: "stat/hall_wc/POWER2"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+
+
+####################################################
+#                      BEDROOM                     #
+####################################################
+
+  - platform: mqtt
+    name: "Bedroom Spotlights"
+    command_topic: "cmnd/bedroom_1/power"
+    state_topic: "stat/bedroom_1/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+
+  - platform: mqtt
+    name: "Bedroom Ceiling"
+    command_topic: "cmnd/bedroom_2/POWER1"
+    state_topic: "stat/bedroom_2/POWER1"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+
+  - platform: mqtt
+    name: "Bedroom Led"
+    command_topic: "cmnd/bedroom_2/POWER2"
+    state_topic: "stat/bedroom_2/POWER2"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+
+
+####################################################
+#                    LIVINGROOM                    #
+####################################################
+
+  - platform: mqtt
+    name: "LR Spotlights"
+    command_topic: "cmnd/livingroom/power3"
+    state_topic: "stat/livingroom/POWER3"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+
+  - platform: mqtt
+    name: "LR Dots"
+    command_topic: "cmnd/livingroom/power2"
+    state_topic: "stat/livingroom/POWER2"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+
+  - platform: mqtt
+    name: "Sofa"
+    command_topic: "cmnd/livingroom/power1"
+    state_topic: "stat/livingroom/POWER1"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+
+  - platform: mqtt
+    name: "Long Dots"
+    command_topic: "cmnd/kitchen_livingroom/power3"
+    state_topic: "stat/kitchen_livingroom/POWER3"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+
+  - platform: mqtt
+    name: "LR Led"
+    command_topic: "cmnd/kitchen_livingroom/power2"
+    state_topic: "stat/kitchen_livingroom/POWER2"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+
+####################################################
+#                     KITCHEN                      #
+####################################################
+
+  - platform: mqtt
+    name: "Kitchen Strip"
+    command_topic: "cmnd/kitchen_1/POWER1"
+    state_topic: "stat/kitchen_1/POWER1"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+
+  - platform: mqtt
+    name: "Island"
+    command_topic: "cmnd/kitchen_1/POWER2"
+    state_topic: "stat/kitchen_1/POWER2"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+
+  - platform: mqtt
+    name: "Dining"
+    command_topic: "cmnd/kitchen_livingroom/power1"
+    state_topic: "stat/kitchen_livingroom/POWER1"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+
+####################################################
+#                     BATHROOM                     #
+####################################################
+
+  - platform: mqtt
+    name: "Shower"
+    command_topic: "cmnd/bathroom/power3"
+    state_topic: "stat/bathroom/POWER3"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+
+  - platform: mqtt
+    name: "Bath Led"
+    command_topic: "cmnd/bathroom/power2"
+    state_topic: "stat/bathroom/POWER2"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+
+  - platform: mqtt
+    name: "Bath Ceiling"
+    command_topic: "cmnd/bathroom/power1"
+    state_topic: "stat/bathroom/POWER1"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+
+
+####################################################
+#                       HALL                       #
+####################################################
+
+  - platform: mqtt
+    name: "Hall Led"
+    command_topic: "cmnd/hall_1/power2"
+    state_topic: "stat/hall_1/POWER2"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+
+  - platform: mqtt
+    name: "Hall Entry"
+    command_topic: "cmnd/hall_1/power1"
+    state_topic: "stat/hall_1/POWER1"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+
+  - platform: mqtt
+    name: "Hall Strip"
+    command_topic: "cmnd/hall_wc/power1"
+    state_topic: "stat/hall_wc/POWER1"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+
+  - platform: mqtt
+    name: "Hall Spotlight"
+    command_topic: "cmnd/hall_4/power"
+    state_topic: "stat/hall_4/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+
+
+####################################################
+#                   CLOSET ROOM                    #
+####################################################
+
+  - platform: mqtt
+    name: "Closet Led"
+    command_topic: "cmnd/closet_1/power"
+    state_topic: "stat/closet_1/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+
+  - platform: mqtt
+    name: "Closet Ceiling"
+    command_topic: "cmnd/closet_2/power"
+    state_topic: "stat/closet_2/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+
+
+####################################################
+#                     UTILITY                      #
+####################################################
+
+  - platform: mqtt
+    name: "Utility"
+    command_topic: "cmnd/utility/power"
+    state_topic: "stat/utility/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+
+
+####################################################
+#                     BALCONY                      #
+####################################################
+
+  - platform: mqtt
+    name: "Balcony"
+    command_topic: "cmnd/balcony/power"
+    state_topic: "stat/balcony/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true

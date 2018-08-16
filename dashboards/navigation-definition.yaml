@@ -1,0 +1,35 @@
+main:
+ widget_type: navigate
+ dashboard: "main"
+ icon_active: fa-home
+ icon_inactive: fa-home
+
+lights:
+ widget_type: navigate
+ dashboard: "lights"
+ icon_active: mdi-lightbulb-on-outline
+ icon_inactive: mdi-lightbulb-on-outline
+
+sensors:
+ widget_type: navigate
+ dashboard: "sensors"
+ icon_active: mdi-run-fast
+ icon_inactive: mdi-run-fast
+
+network:
+ widget_type: navigate
+ dashboard: "network"
+ icon_active: mdi-cellphone-link       
+ icon_inactive: mdi-cellphone-link
+
+automations:
+ widget_type: navigate
+ dashboard: "automations"
+ icon_active: mdi-settings
+ icon_inactive: mdi-settings
+
+media:
+ widget_type: navigate
+ dashboard: "media"
+ icon_active: mdi-music
+ icon_inactive: mdi-music

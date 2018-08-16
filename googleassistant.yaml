@@ -1,0 +1,90 @@
+####################################################
+#                                                  #
+#                 GOOGLE ASSISTANT                 #
+#                                                  #
+####################################################
+
+  project_id: !secret google_project_id
+  client_id: !secret google_client_id
+  access_token: !secret google_access_token
+  agent_user_id: !secret google_agent_user_id
+  expose_by_default: false
+  entity_config:
+    switch.tv_livingroom:
+      expose: true
+      name: Sony TV
+    switch.tv_ipko:
+      expose: true
+      name: Receiver
+    climate.living_room_heater:
+      expose: true
+      name: Temperature
+    light.bedroom_spotlights:
+      expose: true
+      name: Spotlights Bedroom
+    light.balcony:
+      expose: true
+      name: Balcony
+    light.bath_ceiling:
+      expose: true
+      name: Ceiling Bathroom
+    light.bath_led:
+      expose: true
+      name: LED Bathroom
+    light.bedroom_ceiling:
+      expose: true
+      name: Ceiling Bedroom
+    light.bedroom_led:
+      expose: true
+      name: LED Bedroom
+    light.closet_ceiling:
+      expose: true
+      name: Ceiling Closet
+    light.closet_led:
+      expose: true
+      name: LED Closet
+    light.dining:
+      expose: true
+      name: Dining
+    light.hall_entry:
+      expose: true
+      name: Entry Dots
+    light.hall_led:
+      expose: true
+      name: LED Hall
+    light.hall_spotlight:
+      expose: true
+      name: Spotlight
+    light.hall_strip:
+      expose: true
+      name: Strip
+    light.island:
+      expose: true
+      name: Island
+    light.kitchen_strip: 
+      expose: true
+      name: Kitchen Strip
+    light.long_dots:
+      expose: true
+      name: Long Dots
+    light.lr_dots:
+      expose: true
+      name: Dots
+    light.lr_led:
+      expose: true
+      name: LED
+    light.lr_spotlights:
+      expose: true
+      name: Spotlights
+    light.shower:
+      expose: true
+      name: Shower
+    light.sofa:
+      expose: true
+      name: Sofa
+    light.utility:
+      expose: true
+      name: Utility
+    light.wc:
+      expose: true
+      name: Toilet

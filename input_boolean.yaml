@@ -1,0 +1,39 @@
+####################################################
+#                                                  #
+#                   INPUT BOOLEAN                  #
+#                                                  #
+####################################################
+
+  weather:
+
+  living_room_lights_power:
+
+  living_room_lights:
+
+  bed_room_lights_power:
+
+  bed_room_lights:
+
+  kitchen_lights_power:
+
+  kitchen_lights:
+
+  hall_lights_power:
+
+  hall_lights:
+
+  bathroom_lights_power:
+
+  bathroom_lights:
+
+  closet_lights_power:
+
+  closet_lights:
+  
+  tv_remote_power:
+
+  tv_remote:
+
+  fake:
+
+  devices:

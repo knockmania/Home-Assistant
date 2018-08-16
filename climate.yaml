@@ -1,0 +1,13 @@
+####################################################
+#                                                  #
+#                      CLIMATE                     #
+#                                                  #
+####################################################
+
+  - platform: generic_thermostat
+    name: Living Room Heater
+    heater: input_boolean.fake
+    target_sensor: sensor.temperature
+    initial_operation_mode: "off"
+    target_temp: 21
+    ac_mode: False

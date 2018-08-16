@@ -1,0 +1,28 @@
+####################################################
+#                                                  #
+#                  DEVICE TRACKER                  #
+#                                                  #
+####################################################
+
+  - platform: ping
+    hosts:
+      raspberrypi: 192.168.1.2
+      broadlink: 192.168.1.3
+      ps4: 192.168.1.4
+      chromecastlr: 192.168.1.5
+      chromecastbed: 192.168.1.6
+      noriksmbp: 192.168.1.7
+      ghlivingroom: 192.168.1.8
+      ghbedroom: 192.168.1.9
+      knock: 192.168.1.10
+      plex_server: 192.168.1.13
+      dafina: 192.168.1.16
+      sensor_lr: 192.168.1.101
+      sensor_hall: 192.168.1.102
+      sensor_closet: 192.168.1.103
+      sensor_bed: 192.168.1.104
+      samsung_tv: 192.168.1.18
+      
+  - platform: owntracks_http
+
+  - platform: bluetooth_tracker

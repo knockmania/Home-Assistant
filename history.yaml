@@ -1,0 +1,13 @@
+####################################################
+#                                                  #
+#                      HISTORY                     #
+#                                                  #
+####################################################
+
+ include:
+   domains:
+     - light
+     - sensor
+     - swtich
+     - device_tracker
+     - binary_sensor

@@ -1,0 +1,33 @@
+####################################################
+#                                                  #
+#                      FRONTEND                    #
+#                                                  #
+####################################################
+
+  extra_html_url:
+    - /local/custom_ui/state-card-custom-ui.html
+    - /local/custom_ui/state-card-tiles.html
+    - /local/custom_ui/state-card-script-custom-text.html
+    - /local/custom_ui/custom-weather-card.html
+    - /local/custom_ui/state-card-value_only.html
+
+  extra_html_url_es5:
+    - /local/custom_ui/state-card-custom-ui-es5.html
+    - /local/custom_ui/state-card-tiles_es5.html
+    - /local/custom_ui/state-card-script-custom-text-es5.html
+    - /local/custom_ui/custom-weather-card.html
+    - /local/custom_ui/state-card-value_only.html
+
+  themes:
+    entity_green:
+      label-badge-red: 'green'
+    entity_red:
+      label-badge-red: 'red'
+    entity_yellow:
+      label-badge-red: '#DC5E0C'
+    entity_orange:
+      label-badge-red: '#B95617'
+    entity_purple:
+      label-badge-red: '#B2098B'
+    green:
+      icon_color: "#7CFC00"

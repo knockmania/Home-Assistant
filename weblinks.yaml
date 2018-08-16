@@ -1,0 +1,17 @@
+####################################################
+#                                                  #
+#                     WEBLINKS                     #
+#                                                  #
+####################################################
+
+  entities:
+    - name: Router
+      url: http://www.routerlogin.net
+    - name: Plex
+      url: http://192.168.1.13:32400
+    - name: Torrent
+      url: http://192.168.1.13:9091
+    - name: Hosting
+      url: https://ua.siteground.com/login.html
+    - name: Home Assistant Forum
+      url: https://community.home-assistant.io/

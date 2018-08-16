@@ -1,0 +1,61 @@
+####################################################
+#                                                  #
+#                   INPUT SELECT                   #
+#                                                  #
+####################################################
+
+  tv_channels:
+    name: TV Channels
+    options:
+      - Select
+      - Film Nje HD
+      - Film Dy HD
+      - Film Komedi
+      - Film Hits
+      - SSK-1 HD
+      - SSK-2 HD
+      - SSK-3 HD
+      - SS-1 HD
+      - SS-2 HD
+      - SS-3 HD
+      - SS-4 HD
+      - SS-5 HD
+      - SS-6 HD
+    initial: Select
+
+  source:
+    name: Source
+    options:
+      - Select
+      - HDMI 1
+      - HDMI 2
+      - HDMI 3
+    initial: Select
+
+  spotify_playlist:
+    name: 'Playlist:'
+    options:
+      - Select
+      - Cipher
+      - Housing
+      - Into the Sun
+      - Reagge Classics
+      - Dance
+    initial: Select
+    icon: mdi:spotify
+
+  spotify_source:
+    name: 'Source:'
+    options:
+      - Select
+      - Living TV
+      - Bedroom TV
+      - Norik's MacBook Pro
+      - GH Living
+      - GH Bed
+      - HOL-30
+    initial: Select
+    icon: mdi:speaker-wireless
+
+  
+  

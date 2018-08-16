@@ -1,0 +1,47 @@
+####################################################
+#                                                  #
+#                  BINARY SENSORS                  #
+#                                                  #
+####################################################
+
+  - platform: mqtt
+    name: "Motion Living Room"
+    state_topic: "/sensorlr/Motion/Motion"
+    command_topic: "/sensorLR/gpio/15"
+    payload_on: "1"
+    payload_off: "0"
+    retain: true
+
+  - platform: mqtt
+    name: "Motion Bedroom"
+    state_topic: "/sensorbed/Motion/Motion"
+    command_topic: "/sensorbox/gpio/14"
+    payload_on: "1"
+    payload_off: "0"
+    retain: true
+
+  - platform: mqtt
+    name: "Motion Closet Room"
+    state_topic: "/sensorcloset/Motion/Motion"
+    command_topic: "/sensorcloset/gpio/14"
+    payload_on: "1"
+    payload_off: "0"
+    retain: true
+
+  - platform: mqtt
+    name: "Motion Hall"
+    state_topic: "/sensorhall/Motion/Motion"
+    command_topic: "/sensorhall/gpio/14"
+    payload_on: "1"
+    payload_off: "0"
+    retain: true
+
+  - platform: template
+    sensors:
+      norik_home:
+        friendly_name: Norik
+        device_class: presence
+        value_template: >-
+          {{ is_state('device_tracker.knock', 'home')
+             or is_state('device_tracker.knock_bt', 'home') }}
+

@@ -1,0 +1,786 @@
+####################################################
+#                                                  #
+#                     CUSTOMIZE                    #
+#                                                  #
+####################################################
+
+    automation.action_message_lights_on:
+      icon: mdi:gesture-tap
+
+    automation.norik_is_home:
+      icon: mdi:voice
+
+    input_boolean.weather:
+      custom_ui_state_card: custom-weather-card
+      config:
+        weather: weather.yweather
+        sun: sun.sun
+    
+    automation.gh_living_room_offline:
+      friendly_name: Google Home Living Room Offline
+      icon: mdi:message
+
+    automation.tasmota_new_release:
+      friendly_name: Tasmota New Release
+      icon: mdi:message
+
+    automation.gh_bedroom_offline:
+      friendly_name: Google Home Bedroom Offline
+      icon: mdi:message
+
+    automation.cpu_high_alert:
+      friendly_name: High CPU
+      icon: mdi:message
+
+    automation.broadlink_offline:
+      friendly_name: Broadlink Offline
+      icon: mdi:message
+
+    automation.air_pollution:
+      friendly_name: Air Pollution Warning
+      icon: mdi:message
+
+    automation.notify_motion_living_room:
+      friendly_name: Motion Notification Living Room
+      icon: mdi:message
+
+    automation.plex_offline:
+      friendly_name: Plex Media Server Offline
+      icon: mdi:message
+
+    automation.new_release_notifications:
+      friendly_name: New HA Update
+      icon: mdi:message
+
+    automation.turn_on_lights_motion__bedroom:
+      friendly_name: Bedroom Light
+      icon: mdi:lightbulb-on-outline
+
+    input_boolean.fake:
+      hidden: true
+
+    input_text.chromecast_lr_player:
+      icon: mdi:cast
+      custom_ui_state_card: state-card-mini-media-player
+      config:
+        player: media_player.chromecast_living_room
+
+    input_boolean.tv_remote_power:
+      custom_ui_state_card: state-card-tiles
+      config:
+        columns: 3
+        column_width: 111px
+        row_height: 30px
+        color: '#555B65'
+        color_on: '#F0C209'
+        color_off: '#555B65'
+        text_size: '0.70em'
+        entities:
+          - entity: switch.tv_livingroom
+            label: Sony TV
+            icon: mdi:power
+            row: 1
+            column: 1
+            color_on: red
+            color_off: '#04A9F4'
+          - entity: switch.tv_ipko 
+            label: IPKO
+            icon: mdi:power
+            row: 1
+            column: 2
+            color_on: red
+            color_off: '#04A9F4'
+
+    input_boolean.tv_remote:
+      custom_ui_state_card: state-card-tiles
+      config:
+        columns: 4
+        column_width: 83px
+        row_height: 40px
+        color: '#999999'
+        color_on: '#999999'
+        color_off: '#999999'
+        text_size: '0.70em'
+        entities:
+          - entity: script.ipko_channel_down
+            icon: mdi:arrow-down-bold-circle
+            row: 1
+          - entity: script.ipko_channel_up
+            icon: mdi:arrow-up-bold-circle
+            row: 1
+          - entity: script.ipko_volume_down
+            icon: mdi:volume-minus
+            row: 1
+          - entity: script.ipko_volume_up
+            icon: mdi:volume-plus
+            row: 1
+
+    input_boolean.living_room_lights_power:
+      custom_ui_state_card: state-card-tiles
+      config:
+        columns: 3
+        column_width: 111px
+        row_height: 30px
+        color: '#555B65'
+        color_on: '#F0C209'
+        color_off: '#555B65'
+        text_size: '0.70em'
+        entities:
+          - entity: group.livingroom_lights
+            label: Power All
+            icon: mdi:power
+            row: 1
+            column: 1
+            color_on: red
+            color_off: '#04A9F4'
+
+    input_boolean.living_room_lights:
+      custom_ui_state_card: state-card-tiles
+      config:
+        columns: 3
+        column_width: 111px
+        row_height: 40px
+        color: '#999999'
+        color_on: '#F0C209'
+        color_off: '#999999'
+        text_size: '0.70em'
+        entities:
+          - entity: light.sofa
+            label: Sofa
+            icon: mdi:ceiling-light
+            row: 1      
+          - entity: light.lr_led
+            label: Led
+            icon: mdi:square-outline
+            row: 1
+          - entity: light.lr_dots
+            label: Dots
+            icon: mdi:dots-horizontal
+            row: 1
+          - entity: light.long_dots
+            label: Long Dots
+            icon: mdi:drag-horizontal
+            row: 2
+          - entity: light.lr_spotlights
+            label: Spotlight
+            icon: mdi:spotlight-beam
+            row: 2
+          - entity: light.balcony
+            label: Balcony
+            icon: mdi:border-right-variant
+            row: 2
+
+    input_boolean.closet_lights_power:
+      custom_ui_state_card: state-card-tiles
+      config:
+        columns: 3
+        column_width: 111px
+        row_height: 30px
+        color: '#555B65'
+        color_on: '#F0C209'
+        color_off: '#555B65'
+        text_size: '0.70em'
+        entities:
+          - entity: group.closet_lights
+            label: Power All
+            icon: mdi:power
+            row: 1
+            column: 1
+            color_on: red
+            color_off: '#04A9F4'
+
+    input_boolean.closet_lights:
+      custom_ui_state_card: state-card-tiles
+      config:
+        columns: 2
+        column_width: 168px
+        row_height: 40px
+        color: '#999999'
+        color_on: '#F0C209'
+        color_off: '#999999'
+        text_size: '0.70em'
+        entities:
+          - entity: light.closet_ceiling
+            label: Main
+            icon: mdi:ceiling-light
+            row: 1
+          - entity: light.closet_led
+            label: Led
+            icon: mdi:square-outline
+            row: 1
+
+    input_boolean.bathroom_lights_power:
+      custom_ui_state_card: state-card-tiles
+      config:
+        columns: 3
+        column_width: 111px
+        row_height: 30px
+        color: '#555B65'
+        color_on: '#F0C209'
+        color_off: '#555B65'
+        text_size: '0.70em'
+        entities:
+          - entity: group.bathroom_lights
+            label: Power All
+            icon: mdi:power
+            row: 1
+            column: 1
+            color_on: red
+            color_off: '#04A9F4'
+
+    input_boolean.bathroom_lights:
+      custom_ui_state_card: state-card-tiles
+      config:
+        columns: 3
+        column_width: 111px
+        row_height: 40px
+        color: '#999999'
+        color_on: '#F0C209'
+        color_off: '#999999'
+        text_size: '0.70em'
+        entities:
+          - entity: bath_ceiling
+            label: Main
+            icon: mdi:ceiling-light
+            row: 1
+          - entity: light.shower
+            label: Shower
+            icon: mdi:weather-pouring
+            row: 1
+          - entity: light.bath_led
+            label: Led
+            icon: mdi:square-outline
+            row: 1
+
+    input_boolean.hall_lights_power:
+      custom_ui_state_card: state-card-tiles
+      config:
+        columns: 3
+        column_width: 111px
+        row_height: 30px
+        color: '#555B65'
+        color_on: '#F0C209'
+        color_off: '#555B65'
+        text_size: '0.70em'
+        entities:
+          - entity: group.hall_lights
+            label: Power All
+            icon: mdi:power
+            row: 1
+            column: 1
+            color_on: red
+            color_off: '#04A9F4'         
+
+    input_boolean.hall_lights:
+      custom_ui_state_card: state-card-tiles
+      config:
+        columns: 3
+        column_width: 111px
+        row_height: 40px
+        color: '#999999'
+        color_on: '#F0C209'
+        color_off: '#999999'
+        text_size: '0.70em'
+        entities:
+          - entity: light.hall_entry
+            label: Dots
+            icon: mdi:dots-horizontal
+            row: 1
+          - entity: light.hall_led
+            label: Led
+            icon: mdi:square-outline
+            row: 1
+          - entity: light.hall_strip
+            label: Strip
+            icon: mdi:minus
+            row: 1
+          - entity: light.hall_spotlight
+            label: Spotlight
+            icon: mdi:spotlight-beam
+            row: 2
+          - entity: light.wc
+            label: Toilet
+            icon: mdi:human-male-female
+            row: 2
+          - entity: light.utility
+            label: Utility
+            icon: mdi:hammer
+            row: 2
+
+    input_boolean.kitchen_lights_power:
+      custom_ui_state_card: state-card-tiles
+      config:
+        columns: 3
+        column_width: 111px
+        row_height: 30px
+        color: '#555B65'
+        color_on: '#F0C209'
+        color_off: '#555B65'
+        text_size: '0.70em'
+        entities:
+          - entity: group.kitchen_lights
+            label: Power All
+            icon: mdi:power
+            row: 1
+            column: 1
+            color_on: red
+            color_off: '#04A9F4'
+
+    input_boolean.kitchen_lights:
+      custom_ui_state_card: state-card-tiles
+      config:
+        columns: 3
+        column_width: 111px
+        row_height: 40px
+        color: '#999999'
+        color_on: '#F0C209'
+        color_off: '#999999'
+        text_size: '0.70em'
+        entities:
+          - entity: light.kitchen_strip
+            label: Strip
+            icon: mdi:minus
+            row: 1
+          - entity: light.island
+            label: Island
+            icon: mdi:water-pump
+            row: 1
+          - entity: light.dining
+            label: Table
+            icon: mdi:silverware
+            row: 1
+
+    input_boolean.bed_room_lights_power:
+      custom_ui_state_card: state-card-tiles
+      config:
+        columns: 3
+        column_width: 111px
+        row_height: 30px
+        color: '#555B65'
+        color_on: '#F0C209'
+        color_off: '#555B65'
+        text_size: '0.70em'
+        entities:
+          - entity: group.bedroom_lights
+            label: Power All
+            icon: mdi:power
+            row: 1
+            column: 1
+            color_on: red
+            color_off: '#04A9F4'
+
+    input_boolean.bed_room_lights:
+      custom_ui_state_card: state-card-tiles
+      config:
+        columns: 3
+        column_width: 111px
+        row_height: 40px
+        color: '#999999'
+        color_on: '#F0C209'
+        color_off: '#999999'
+        text_size: '0.70em'
+        entities:
+          - entity: light.bedroom_ceiling
+            label: Main
+            icon: mdi:ceiling-light
+            row: 1
+          - entity: light.bedroom_led
+            label: Led
+            icon: mdi:square-outline
+            row: 1
+          - entity: light.bedroom_spotlights
+            label: Spotlights
+            icon: mdi:spotlight-beam
+            row: 1
+
+    sun.sun:
+      templates:
+        icon: if (state === 'above_horizon') return 'mdi:weather-sunny'; else return 'mdi:weather-night';
+
+    sensor.db_size:
+      custom_ui_state_card: state-card-custom-ui
+      state_card_mode: badges
+      friendly_name: DB size
+      icon: mdi:database
+      templates:
+        theme: >
+          if (state > 500) {
+            return 'hot';
+          } else if (state >= 250 ) {
+            return 'warm';
+          } else {
+            return 'cold';
+          }
+
+    sensor.us_air_pollution_level:
+      friendly_name: Air Pollution Level
+
+    sensor.us_air_quality_index:
+      friendly_name: Air Quality Index
+
+    sensor.closet_temperature:
+      friendly_name: Temperature
+      custom_ui_state_card: state-card-custom-ui
+      show_last_changed: true
+
+    sensor.closet_humidity:
+      friendly_name: Humidity
+      custom_ui_state_card: state-card-custom-ui
+      show_last_changed: true
+      icon: mdi:water-percent
+
+    sensor.hall_temperature:
+      friendly_name: Temperature
+      custom_ui_state_card: state-card-custom-ui
+      show_last_changed: true
+
+    sensor.hall_humidity:
+      friendly_name: Humidity
+      custom_ui_state_card: state-card-custom-ui
+      show_last_changed: true
+      icon: mdi:water-percent
+
+    sensor.bedroom_temperature:
+      custom_ui_state_card: state-card-custom-ui
+      show_last_changed: true
+
+    sensor.living_room_humidity:
+      friendly_name: Humidity
+      custom_ui_state_card: state-card-custom-ui
+      show_last_changed: true
+      icon: mdi:water-percent
+
+    sensor.bedroom_humidity:
+      custom_ui_state_card: state-card-custom-ui
+      show_last_changed: true
+      icon: mdi:water-percent
+
+    binary_sensor.motion_living_room:
+      custom_ui_state_card: state-card-custom-ui
+      show_last_changed: true
+      friendly_name: Living Room Motion
+      icon: mdi:run-fast      
+      templates:
+        state: if (state === 'on') return 'Detected'; else return 'Clear';
+        hs_color: "if (state === 'on') return [48, 96];"
+        icon: if (state === 'on') return 'mdi:run-fast'; else return 'mdi:walk';
+
+    binary_sensor.motion_bedroom:
+      custom_ui_state_card: state-card-custom-ui
+      show_last_changed: true
+      friendly_name: Bedroom Motion
+      icon: mdi:run-fast      
+      templates:
+        state: if (state === 'on') return 'Detected'; else return 'Clear';
+        hs_color: "if (state === 'on') return [48, 96];"
+        icon: if (state === 'on') return 'mdi:run-fast'; else return 'mdi:walk';
+
+    binary_sensor.motion_closet_room:
+      custom_ui_state_card: state-card-custom-ui
+      show_last_changed: true
+      friendly_name: Closet Room Motion
+      icon: mdi:run-fast      
+      templates:
+        state: if (state === 'on') return 'Detected'; else return 'Clear';
+        hs_color: "if (state === 'on') return [48, 96];"
+        icon: if (state === 'on') return 'mdi:run-fast'; else return 'mdi:walk';
+
+    binary_sensor.motion_hall:
+      custom_ui_state_card: state-card-custom-ui
+      show_last_changed: true
+      friendly_name: Hall Motion
+      icon: mdi:run-fast      
+      templates:
+        state: if (state === 'on') return 'Detected'; else return 'Clear';
+        hs_color: "if (state === 'on') return [48, 96];"
+        icon: if (state === 'on') return 'mdi:run-fast'; else return 'mdi:walk';
+
+    binary_sensor.bayesian_binary_sensor:
+      friendly_name: Norik
+      icon: mdi:human-male
+      device_class: presence
+      templates:
+        state: if (state === 'on') return 'Home'; else return 'Away';
+        hs_color: "if (state === 'on') return [48, 96];" 
+
+    device_tracker.sensor_hall:
+      custom_ui_state_card: state-card-custom-ui
+      extra_data_template: 192.168.1.102
+      friendly_name: Sensor Status
+      icon: mdi:disk   
+      templates:
+        state: if (state === 'home') return 'On'; else return 'Off';
+        hs_color: "if (state === 'home') return [48, 96];"
+
+    device_tracker.sensor_bed:
+      custom_ui_state_card: state-card-custom-ui
+      extra_data_template: 192.168.1.104
+      friendly_name: Sensor Status
+      icon: mdi:disk   
+      templates:
+        state: if (state === 'home') return 'On'; else return 'Off';
+        hs_color: "if (state === 'home') return [48, 96];"
+
+    device_tracker.sensor_lr:  
+      custom_ui_state_card: state-card-custom-ui
+      extra_data_template: 192.168.1.101
+      friendly_name: Sensor Status
+      icon: mdi:disk   
+      templates:
+        state: if (state === 'home') return 'On'; else return 'Off';
+        hs_color: "if (state === 'home') return [48, 96];"
+
+    device_tracker.sensor_closet:  
+      custom_ui_state_card: state-card-custom-ui
+      extra_data_template: 192.168.1.103
+      friendly_name: Sensor Status
+      icon: mdi:disk   
+      templates:
+        state: if (state === 'home') return 'On'; else return 'Off';
+        hs_color: "if (state === 'home') return [48, 96];"
+
+    device_tracker.noriksmbp:
+      custom_ui_state_card: state-card-custom-ui
+      extra_data_template: 192.168.1.7
+      friendly_name: Norik's Macbook Pro
+      icon: mdi:laptop-mac            
+      templates:
+        state: if (state === 'home') return 'On'; else return 'Off';
+        hs_color: "if (state === 'home') return [48, 96];"
+
+    device_tracker.raspberrypi:
+      custom_ui_state_card: state-card-custom-ui
+      extra_data_template: 192.168.1.2
+      friendly_name: Raspberry Pi
+      icon: mdi:raspberrypi
+      templates:
+        state: if (state === 'home') return 'On'; else return 'Off';
+        hs_color: "if (state === 'home') return [48, 96];"
+
+    device_tracker.broadlink:
+      custom_ui_state_card: state-card-custom-ui
+      extra_data_template: 192.168.1.3
+      friendly_name: Broadlink RM Pro
+      icon: mdi:router-wireless
+      templates:
+        state: if (state === 'home') return 'On'; else return 'Off';
+        hs_color: "if (state === 'home') return [48, 96];"
+
+    device_tracker.ghbedroom:
+      custom_ui_state_card: state-card-custom-ui
+      extra_data_template: 192.168.1.9
+      friendly_name: Google Home Bedroom
+      icon: mdi:google-home
+      templates:
+        state: if (state === 'home') return 'On'; else return 'Off';
+        hs_color: "if (state === 'home') return [48, 96];"
+
+    device_tracker.ghlivingroom:
+      custom_ui_state_card: state-card-custom-ui
+      extra_data_template: 192.168.1.8
+      friendly_name: Google Home Living Room
+      icon: mdi:google-home
+      templates:
+        state: if (state === 'home') return 'On'; else return 'Off';
+        hs_color: "if (state === 'home') return [48, 96];"
+
+    device_tracker.ps4:
+      custom_ui_state_card: state-card-custom-ui
+      extra_data_template: 192.168.1.4
+      friendly_name: Playstation 4
+      icon: mdi:playstation
+      templates:
+        state: if (state === 'home') return 'On'; else return 'Off';
+        hs_color: "if (state === 'home') return [48, 96];"
+
+    device_tracker.norik:
+      custom_ui_state_card: state-card-custom-ui
+      state_card_mode: badges
+      friendly_name: Norik
+      icon: mdi:human-male            
+      templates:
+        state: if (state === 'home') return 'Home'; else return 'Away';
+        theme: >
+          if (state === 'home') return 'warm'; else return 'hot';
+
+    device_tracker.chromecastlr:
+      custom_ui_state_card: state-card-custom-ui
+      extra_data_template: 192.168.1.5
+      friendly_name: Chromecast Living Room
+      icon: mdi:cast
+      templates:
+        state: if (state === 'home') return 'On'; else return 'Off';
+        hs_color: "if (state === 'home') return [48, 96];"
+
+    device_tracker.chromecastbed:
+      custom_ui_state_card: state-card-custom-ui
+      extra_data_template: 192.168.1.6
+      friendly_name: Chromecast Box Room
+      icon: mdi:cast
+      templates:
+        state: if (state === 'home') return 'On'; else return 'Off';
+        hs_color: "if (state === 'home') return [48, 96];"
+
+    device_tracker.plex_server:
+      custom_ui_state_card: state-card-custom-ui
+      extra_data_template: 192.168.1.13
+      friendly_name: Plex Media Server
+      icon: mdi:plex
+      templates:
+        state: if (state === 'home') return 'On'; else return 'Off';
+        hs_color: "if (state === 'home') return [48, 96];"
+
+    sensor.speedtest_download:
+      custom_ui_state_card: state-card-custom-ui
+      state_card_mode: badges
+      friendly_name: Download
+      icon: mdi:arrow-down
+      templates:
+        hs_color: >
+          if (state >= 20) {
+            return 'green';
+          } else if (state > 13 ) {
+            return 'warm';
+          } else {
+            return 'hot';
+          }
+
+    sensor.speedtest_upload:
+      custom_ui_state_card: state-card-custom-ui
+      state_card_mode: badges
+      friendly_name: Upload
+      icon: mdi:arrow-up
+      templates:
+        theme: >
+          if (state < 5) {
+            return 'hot';
+          } else if (state =< 8 ) {
+            return 'warm';
+          } else {
+            return 'cold';
+          }
+
+
+    sensor.speedtest_ping:
+      custom_ui_state_card: state-card-custom-ui
+      state_card_mode: badges
+      friendly_name: Ping
+      templates:
+        theme: >
+          if (state > 100) {
+            return 'hot';
+          } else if (state >= 55 ) {
+            return 'warm';
+          } else {
+            return 'cold';
+          }
+   
+    sensor.weather_summary:
+      friendly_name: Weather
+
+    sensor.weather_temperature:
+      friendly_name: Temperature
+
+    script.restart_ha:
+      friendly_name: Restart HA
+      custom_text: "Restart"
+      icon: mdi:power
+
+    script.ir_rf_learn:
+      friendly_name: IR/RF Learn
+      custom_text: "Learn"
+      icon: mdi:barcode-scan
+
+    switch.ipko_power:
+      icon: mdi:power
+      friendly_name: IPKO
+      assumed_state: false
+
+    switch.ipko_volume:
+      friendly_name: IPKO Volume
+      icon: mdi:volume-high
+      custom_ui_state_card: state-card-custom-volume-ipko
+
+    switch.ipko_volume_mute:
+      icon: mdi:volume-mute
+      assumed_state: false
+
+    switch.ipko_channel:
+      icon: mdi:thumbs-up-down
+      custom_ui_state_card: state-card-custom-channel
+
+    switch.sony_tv_power:
+      friendly_name: TV
+      icon: mdi:television
+      assumed_state: false
+
+    switch.sony_tv_volume:
+      friendly_name: TV Volume
+      icon: mdi:volume-high
+      custom_ui_state_card: state-card-custom-volume-sony
+
+    sensor.living_room_temperature:
+      custom_ui_state_card: state-card-custom-ui
+      show_last_changed: true
+      friendly_name: Temperature
+      icon: mdi:thermometer
+
+    sensor.tasmota_version:
+      friendly_name: Tasmota Version
+      icon: mdi:square-inc
+
+    sensor.installed_version:
+      friendly_name: Installed Version
+      icon: mdi:folder-download
+
+    sensor.latest_release:
+      friendly_name: Latest Release
+      icon: mdi:github-circle
+
+    sensor.since_last_boot_templated:
+      friendly_name: Last Boot
+      icon: mdi:clock
+
+    sensor.processor_use:
+      custom_ui_state_card: state-card-custom-ui
+      state_card_mode: badges
+      friendly_name: CPU Load
+      icon: mdi:chip
+      templates:
+        theme: >
+          if (state > 80) {
+            return 'hot';
+          } else if (state >= 50 ) {
+            return 'warm';
+          } else {
+            return 'cold';
+          }
+
+    sensor.memory_use_percent:
+      custom_ui_state_card: state-card-custom-ui
+      state_card_mode: badges
+      friendly_name: Memory Load
+      templates:
+        theme: >
+          if (state > 80) {
+            return 'hot';
+          } else if (state >= 50 ) {
+            return 'warm';
+          } else {
+            return 'cold';
+          }
+
+    sensor.disk_use_percent_home:
+      custom_ui_state_card: state-card-custom-ui
+      state_card_mode: badges
+      friendly_name: Disk Used
+      templates:
+        theme: >
+          if (state > 80) {
+            return 'hot';
+          } else if (state >= 50 ) {
+            return 'warm';
+          } else {
+            return 'cold';
+          }
+      

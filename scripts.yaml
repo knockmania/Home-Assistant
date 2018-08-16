@@ -1,0 +1,195 @@
+####################################################
+#                                                  #
+#                      SCRIPTS                     #
+#                                                  #
+####################################################
+
+  spotify_music:
+    alias: "Play selected spotify playlist"
+    sequence:
+      - service: media_player.select_source
+        data_template: 
+          entity_id: media_player.spotify
+          source: >
+            {% if is_state("input_select.spotify_source", "Living TV") %} Living Room TV
+            {% elif is_state("input_select.spotify_source", "Bedroom TV") %} Bedroom TV
+            {% elif is_state("input_select.spotify_source", "Norik's MacBook Pro") %} Norik's MacBook Pro
+            {% elif is_state("input_select.spotify_source", "GH Living") %} Google Home LR
+            {% elif is_state("input_select.spotify_source", "GH Bed") %} Google Home Bed
+            {% elif is_state("input_select.spotify_source", "HOL-30") %} HOL-30
+            {% endif %}
+      - service: media_player.play_media
+        data_template:
+          entity_id: media_player.spotify
+          media_content_type: playlist
+          media_content_id: >
+            {% if is_state("input_select.spotify_playlist", "Cipher") %} spotify:user:nor1k:playlist:42nHKehPy1AjC6nIBT6kfh
+            {% elif is_state("input_select.spotify_playlist", "Hosuing") %} spotify:user:nor1k:playlist:3fxgNoX9ajXaImSaYBFehW
+            {% elif is_state("input_select.spotify_playlist", "Into The Sun") %} spotify:user:nor1k:playlist:71N61xOUd8FD07tA6pn3Kb
+            {% elif is_state("input_select.spotify_playlist", "Reagge Classics") %} spotify:user:nor1k:playlist:6Y51eK09z0wbl4yiP8jFAz
+            {% elif is_state("input_select.spotify_playlist", "Dance") %} spotify:user:nor1k:playlist:4m4VYWVsfsCCQtecSay1tP
+            {% endif %}
+
+  ir_rf_learn:
+    alias: Learn IR
+    sequence:
+      - service: switch.broadlink_learn_command_192_168_1_3
+
+  restart_ha:  
+    alias: Restart HA
+    sequence:
+      - service: homeassistant.restart
+  
+  ipko_volume_up:
+    alias: Ipko Volume Up
+    sequence: 
+      - service: switch.broadlink_send_packet_192_168_1_3
+        data:
+          packet:
+            - "JgBQAAABJJATERQSExETERQRExETEhMRFBETNRQ1FDUUEhM1FDUUERQRExITERMSExETEhMRExITNRQ1FDUUNRQ2EzYUNRQ1FAAFZQABJEcUAA0FAAAAAAAAAAA="
+
+  ipko_volume_down:
+    alias: Ipko Volume Down
+    sequence: 
+      - service: switch.broadlink_send_packet_192_168_1_3
+        data:
+          packet:
+            - "JgBIAAABJJAUEBQRExEUERMRFBETERQRExEUNRQ2EzYTERQ1FDYTERQ1FDYTERQ1FBETERQRExEUERMRFDUUERM2FDUUNRQ2EwANBQ=="
+
+  ipko_channel_up:
+    alias: Ipko Channel Up
+    sequence: 
+      - service: switch.broadlink_send_packet_192_168_1_3
+        data:
+          packet:
+            - "JgBQAAABJJAUERMRFBETERQQFBETERQRExEUNRQ2EzYTERQ1FDUUERQ1FDYTNhM2FBAUERM2ExITERQQFBETERQ1FDYTERQ1FAAFZQABJEcUAA0FAAAAAAAAAAA="
+
+  ipko_channel_down:
+    alias: Ipko Channel Down
+    sequence: 
+      - service: switch.broadlink_send_packet_192_168_1_3
+        data:
+          packet:
+            - "JgBQAAABI5ETERQRExETEhMRExEUERMRFBETNhM2FDUUERM2EzYUERM2ExITNhM2ExEUERMRExITERQ1FBETERQ1FDUUNhM2EwAFZgABI0gTAA0FAAAAAAAAAAA="
+
+  sony_volume_up:
+    alias: Sony Volume Up
+    sequence: 
+      - service: switch.broadlink_send_packet_192_168_1_3
+        data:
+          packet:
+            - "JgCSABQTJxMUExQTKBMUExQTKBMUExQTFBMUAANcTxMUEycTFRIVEigTFBMUEygTFBMUExQTFCUUAAMjTxMUEygTFBMUEycTFBMUEygTFBMUExQTFAADXE8TFBMoExQTFBMoExQTFBMnExQTFBMUExQoCwADKk8SFREpExQTFBMoExQTFBMoEhUTFBIVExQABh0HAA0FAAAAAAAA"
+
+  sony_volume_down:
+    alias: Sony Volume Down
+    sequence: 
+      - service: switch.broadlink_send_packet_192_168_1_3
+        data:
+          packet:
+            - "JgCOAAoABRgLAAT8ThMoEygTFBMUEycTFBMUEygTFBMUExQTFDgMAAKEDHVOEygTKBIVExQTJxMUExQTKBMUExQTFBMUAANJTxMoEigTFBMUEygTFBMUEycTFRIVEhUTFCMOAAFcDgABrU8TKBIoExQTFBMoExQTFBMnExUSFRIVExQACKcHAAemEQAKLgkADQUAAAAAAAAAAAAA"
+
+
+  tv_channels_0:
+    alias: Channel 0
+    sequence: 
+      - service: switch.broadlink_send_packet_192_168_1_3
+        data:
+          packet:
+            - "JgBQAAABI5ESExISExISEhISEhMSEhMSEhISOBI3FDUSEhM3ETgRFBI3EhITEhISExETEhI3ERQSEhM2EjgROBI3ETgSExI3EQAFaAABI0gSAA0FAAAAAAAAAAA="
+
+  tv_channels_1:
+    alias: Channel 1
+    sequence: 
+      - service: switch.broadlink_send_packet_192_168_1_3
+        data:
+          packet:
+            - "JgBIAAABJJESExISExISEhMSEhISEhMSExIROBE4ETgTEhI3ETgSExI3EhMSEhQ1EhMSEhITEhMRExI3FDUTEhI3ETgUNRM3EQANBQ=="
+
+  tv_channels_2:
+    alias: Channel 2
+    sequence: 
+      - service: switch.broadlink_send_packet_192_168_1_3
+        data:
+          packet:
+            - "JgBQAAABJZAUEBQRFBETEhISExETERQRExITNRQ1FDYTEhM1FDYTERQ2ExEUNRQSEhITEhISExISEhM1FBISNhQ1FDUUNhM2FAAFZQABJEcUAA0FAAAAAAAAAAA="
+
+  tv_channels_3:
+    alias: Channel 3
+    sequence: 
+      - service: switch.broadlink_send_packet_192_168_1_3
+        data:
+          packet:
+            - "JgBQAAABJZATERQSExETEhMRExEUERMSExETNRQ1FDYTERQ1EzcSEhQ1ExIUERQRExETEhMRExITERQ1EjcSNxI3EzYTNxI3EgAFZwABJUYUAA0FAAAAAAAAAAA="
+
+  tv_channels_4:
+    alias: Channel 4
+    sequence: 
+      - service: switch.broadlink_send_packet_192_168_1_3
+        data:
+          packet:
+            - "JgBIAAABIpITEhISExISEhMSEhITEhISFBESNxE4ETgSExM2ETgSExQ1EjgRExM2EhMTERM2EhMTEhMRFDUSExI3ETgSExM2EQANBQ=="
+
+  tv_channels_5:
+    alias: Channel 5
+    sequence: 
+      - service: switch.broadlink_send_packet_192_168_1_3
+        data:
+          packet:
+            - "JgBQAAABJJETERUQERMRFBETERQRExEUERMROBI3EjgRExE4EjcSExE4EjgROBETEhMRExE4EhMRFBETERMSOBI3ETgRExI4EQAFZwABJUcRAA0FAAAAAAAAAAA="
+
+  tv_channels_6:
+    alias: Channel 6
+    sequence: 
+      - service: switch.broadlink_send_packet_192_168_1_3
+        data:
+          packet:
+            - "JgBIAAABJZAUERQRExETEhMRExITERMSExETNhM2EzYUERQ1EzYUERQ1FDUUERQRExITERM1FBITERQREzUUNRQ1FDYTEhM1FAANBQ=="
+
+  tv_channels_7:
+    alias: Channel 7
+    sequence: 
+      - service: switch.broadlink_send_packet_192_168_1_3
+        data:
+          packet:
+            - "JgBQAAABJZATERQSExETEhMRExEUERMSExETNRQ1FDYSEhQ1EjcSExQSEzURFBI3ERMTEhE4ExESOBQQFDUUERM2EzYVEBE4EQAFaAABJEcUAA0FAAAAAAAAAAA="
+
+  tv_channels_8:
+    alias: Channel 8
+    sequence: 
+      - service: switch.broadlink_send_packet_192_168_1_3
+        data:
+          packet:
+            - "JgBIAAABJZATERQRExITERMSExETEhMRExITNRQ1FDYTERQ1FDUUERQSEzUUNRQSExETERQ1ExIUNRMRFBITNRM2FDUUERQ1FAANBQ=="
+
+  tv_channels_9:
+    alias: Channel 9
+    sequence: 
+      - service: switch.broadlink_send_packet_192_168_1_3
+        data:
+          packet:
+            - "JgBIAAABJJAUERQRExISERQRExITERMSExETNhM2EzYUERM2EzYUERQREzUUERQRExITERM1FBEUNRQRFDUUNRQ1FDYUERM1FAANBQ=="
+
+  middle_button:
+    alias: Middle Button
+    sequence:
+      - service: switch.broadlink_send_packet_192_168_1_3
+        data:
+          packet:
+            - "JgB+AA8AB6YPBgsACRpNFSUVEhYlFRIWERUmFSUVKBMSFBMUExQTAAM3TRUmFRMUJxMUExQTJg4tEioTEhUUExQTFAADNk4TKBMUEygTFBMUEygSKBMoEhUSFRMUExQAAzVPEycTFBMoExQTFBMoEigTKBMUExQTFBMUAARiCAANBQAAAAAAAAAAAAA="
+
+  up_button:
+    alias: Up Button
+    sequence:
+      - service: switch.broadlink_send_packet_192_168_1_3
+        data:
+          packet:
+            - "JgBWAFATFBMUEygTFBMnEygTKBIoExQTFBMUExQAAzVPExQTFBMoERYTKBMnEygTJxMUExQTFRIVAAM1TxIVExQTJxMUEygTJxMoEygTFBMUExQTFCcOAA0FAAA="
+
+  down_button:
+    alias: Down Button
+    sequence:
+      - service: switch.broadlink_send_packet_192_168_1_3
+        data:
+          packet:
+            - "JgBUAE8TJxMVEigTFBMoEycTKBMnFBMTFBMVEhUAAyFPEycTFBMoExQTKBIoEygTJxMUExUSFRIVAAMhTxMoExQTKBIVEigTKBMnEygTFBMUExQTFAANBQAAAAA="
+    

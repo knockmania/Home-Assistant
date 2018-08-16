@@ -1,0 +1,499 @@
+####################################################
+#                                                  #
+#                    AUTOMATIONS                   #
+#                                                  #
+####################################################
+- id: norik_is_home
+  alias: 'Norik is home'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.norik_home
+      from: 'off'
+      to: 'on'
+    - platform: state
+      entity_id: device_tracker.dafina
+      from: 'not_home'
+      to: 'home'
+  condition:
+    condition: time
+    after: '11:30:00'
+    before: '20:00:00'
+  action:
+    service: tts.google_say
+    entity_id: media_player.living_room_speaker
+    data:
+      message: 'Hi Norik, Welcome Home'
+
+- id: action_message_lights_on
+  alias: 'Action Message Lights On'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.norik_home
+      to: 'off'
+      for: '00:00:10'
+  condition:
+    - condition: state
+      entity_id: group.all_lights
+      state: 'on'
+  action:
+    service: notify.ios_norik
+    data:
+      message: 'You Left Your Lights On'
+      data:
+        push:
+          badge: 0
+          category: "lights"
+        action_data:
+          entity_id: group.all_lights
+
+- id: action_message_lights_on_2
+  alias: 'Action Message Lights On 2'
+  initial_state: 'on'
+  trigger:
+    - platform: event
+      event_type: ios.notification_action_fired
+      event_data: 
+        actionName: LIGHTSOFF
+  action:
+    service: homeassistant.turn_off
+    entity_id: group.all_lights
+
+- alias: 'Spotify Volume (Set)'
+  trigger:
+    platform: state
+    entity_id: input_number.spotify_volume
+  action:
+    service: media_player.volume_set
+    data_template:
+      entity_id: media_player.spotify
+      volume_level: '{{  states.input_number.spotify_volume.state | int / 100  }}'
+  
+- alias: 'Spotify Volume (Sync)'
+  trigger:
+    - platform: homeassistant
+      event: start
+    - platform: state
+      entity_id: sensor.spotify_volume
+  action:
+    - delay:
+        seconds: 5
+    - service: input_number.set_value
+      data_template:
+        entity_id: input_number.spotify_volume
+        value: '{{  states.sensor.spotify_volume.state | float | round(2) * 100  }}'
+
+- alias: Spotify Source (Sync)
+  trigger:
+    - platform: homeassistant
+      event: start
+    - platform: state
+      entity_id: sensor.spotify_source
+  action:
+    service: input_select.select_option
+    entity_id: input_select.spotify_source
+    data_template:
+      option: '{{  states.sensor.spotify_source.state  }}'
+
+# Update Last Motion variable
+- alias: "Update Last Motion"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.motion_bedroom, binary_sensor.motion_closet_room, binary_sensor.motion_hall, binary_sensor.motion_living_room
+      to: 'on'
+  action:
+    - service: variable.set_variable
+      data:
+        variable: last_motion
+        attributes_template: >
+            {
+              "history_1": "{{ variable.state }}",
+              "history_2": "{{ variable.attributes.history_1 }}",
+              "history_3": "{{ variable.attributes.history_2 }}"
+            }
+      data_template:
+        value: "{{ trigger.to_state.attributes.friendly_name }}"
+
+- alias: Turn on Lights Motion - Bedroom
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_bedroom
+    from: 'off'
+    to: 'on'
+  condition:
+    - condition: state
+      entity_id: light.bedroom_spotlights
+      state: 'off'
+    - condition: state
+      entity_id: sun.sun
+      state: 'below_horizon'
+    - condition: time
+      after: '15:00:00'
+      before: '23:59:00'
+  action:
+    - service: light.turn_on
+      entity_id: light.bedroom_spotlights
+
+- alias: Turn off Lights After 10 Minutes with No Motion
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_bedroom
+    to: 'off'
+    for: '00:10:00'
+  action:
+    - service: light.turn_off
+      entity_id: light.bedroom_spotlights
+
+- alias: Turn Off TV When No One Is Home
+  trigger: 
+    platform: state
+    entity_id: device_tracker.noriksiphone
+    from: 'home'
+    to: 'not_home'
+  condition:
+    condition: state
+    entity_id: device_tracker.chromecastlivingroom
+    state: 'home'
+  action:
+    - delay: 00:02:00
+    - service: switch.turn_off
+      entity_id: switch.sony_tv_power
+
+- alias: Turn on Sonoff
+  trigger:
+    platform: time
+    at: '11:59:00'
+  action:
+    service: light.turn_on
+    entity_id: light.sonoff_light
+
+- alias: Turn off Sonoff
+  trigger:
+    platform: time
+    at: '12:00:00'
+  action:
+    service: light.turn_off
+    entity_id: light.sonoff_light
+
+####################################################                                                  
+#                  Notifications                   #                                                  
+####################################################
+
+- alias: 'New Release Notifications'
+  trigger:
+    platform: state
+    entity_id: sensor.latest_release
+  action:
+    service: notify.ios_norik
+    data:
+      message: 'Update for Home Assistant is available.'
+
+- alias: Tasmota New Release
+  trigger:
+    platform: state
+    entity_id: sensor.tasmota_version
+  action:
+    service: notify.ios_norik
+    data:
+      message:
+        New Tasmota Version
+
+- alias: Notify Motion Living Room
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_living_room
+    from: 'off'
+    to: 'on'
+  action:
+    service: notify.ios_norik
+    data_template:
+      message: >
+        Motion Detected
+
+- alias: Plex Offline
+  trigger: 
+    platform: state
+    entity_id: device_tracker.plex_server
+    from: 'home'
+    to: 'not_home'
+  action:
+    service: notify.ios_norik
+    data_template:
+      message: >
+        Plex Media Server went offline
+
+- alias: Broadlink Offline
+  trigger: 
+    platform: state
+    entity_id: device_tracker.broadlink
+    from: 'home'
+    to: 'not_home'
+  action:
+    service: notify.ios_norik
+    data_template:
+      message: >
+        Oooops! Broadlink went offline
+
+- alias: GH Living Room Offline
+  trigger: 
+    platform: state
+    entity_id: device_tracker.ghlivingroom
+    from: 'home'
+    to: 'not_home'
+  action:
+    service: notify.ios_norik
+    data_template:
+      message: >
+        Oooops! Google Home in Living Room went offline
+
+- alias: GH Bedroom Offline
+  trigger: 
+    platform: state
+    entity_id: device_tracker.ghbedroom
+    from: 'home'
+    to: 'not_home'
+  action:
+    service: notify.ios_norik
+    data_template:
+      message: >
+        Oooops! Google Home in Bedroom went offline
+
+- alias: Air Pollution
+  trigger: 
+    platform: state
+    entity_id: sensor.us_air_pollution_level
+    to: 'Unhealthy'
+  action:
+    service: notify.ios_norik
+    data_template:
+      message: >
+        Please close the windows. The air quality right now is unhealthy!
+
+- alias: CPU High Alert
+  trigger: 
+    platform: numeric_state
+    entity_id: sensor.processor_use
+    above: 80
+  action:
+    service: notify.ios_norik
+    data_template:
+      message: >
+        Raspberry Pi CPU is high.
+
+####################################################                                                  
+#                   Channel List                   #                                                  
+####################################################
+
+- alias: HDMI 1
+  trigger:
+    platform: state
+    entity_id: input_select.source
+  condition:
+    condition: state
+    entity_id: input_select.source
+    state: HDMI 1
+  action:
+  - service: script.middle_button
+  - service: script.up_button
+  - service: script.middle_button
+
+- alias: HDMI 2
+  trigger:
+    platform: state
+    entity_id: input_select.source
+  condition:
+    condition: state
+    entity_id: input_select.source
+    state: HDMI 2
+  action:
+  - service: script.middle_button
+  - service: script.down_button
+  - service: script.middle_button
+
+- alias: HDMI 3
+  trigger:
+    platform: state
+    entity_id: input_select.source
+  condition:
+    condition: state
+    entity_id: input_select.source
+    state: HDMI 3
+  action:
+  - service: script.middle_button
+  - service: script.down_button
+  - service: script.down_button
+  - service: script.middle_button
+
+####################################################                                                  
+#                   Channel List                   #                                                  
+####################################################
+
+- alias: Film Nje HD
+  trigger:
+    platform: state
+    entity_id: input_select.tv_channels
+  condition:
+    condition: state
+    entity_id: input_select.tv_channels
+    state: Film Nje HD
+  action:
+  - service: script.tv_channels_0
+  - service: script.tv_channels_7
+  - service: script.tv_channels_1
+
+- alias: Film Dy HD
+  trigger:
+    platform: state
+    entity_id: input_select.tv_channels
+  condition:
+    condition: state
+    entity_id: input_select.tv_channels
+    state: Film Dy HD
+  action:
+  - service: script.tv_channels_0
+  - service: script.tv_channels_7
+  - service: script.tv_channels_2
+
+- alias: Film Komedi
+  trigger:
+    platform: state
+    entity_id: input_select.tv_channels
+  condition:
+    condition: state
+    entity_id: input_select.tv_channels
+    state: Film Komedi
+  action:
+  - service: script.tv_channels_0
+  - service: script.tv_channels_8
+  - service: script.tv_channels_6
+
+- alias: Film Hits
+  trigger:
+    platform: state
+    entity_id: input_select.tv_channels
+  condition:
+    condition: state
+    entity_id: input_select.tv_channels
+    state: Film Hits
+  action:
+  - service: script.tv_channels_0
+  - service: script.tv_channels_8
+  - service: script.tv_channels_8
+
+- alias: SSK-1 HD
+  trigger:
+    platform: state
+    entity_id: input_select.tv_channels
+  condition:
+    condition: state
+    entity_id: input_select.tv_channels
+    state: SSK-1 HD
+  action:
+  - service: script.tv_channels_2
+  - service: script.tv_channels_0
+  - service: script.tv_channels_6
+
+- alias: SSK-2 HD
+  trigger:
+    platform: state
+    entity_id: input_select.tv_channels
+  condition:
+    condition: state
+    entity_id: input_select.tv_channels
+    state: SSK-2 HD
+  action:
+  - service: script.tv_channels_2
+  - service: script.tv_channels_0
+  - service: script.tv_channels_7
+
+- alias: SSK-3 HD
+  trigger:
+    platform: state
+    entity_id: input_select.tv_channels
+  condition:
+    condition: state
+    entity_id: input_select.tv_channels
+    state: SSK-3 HD
+  action:
+  - service: script.tv_channels_2
+  - service: script.tv_channels_0
+  - service: script.tv_channels_8
+
+- alias: SS-1 HD
+  trigger:
+    platform: state
+    entity_id: input_select.tv_channels
+  condition:
+    condition: state
+    entity_id: input_select.tv_channels
+    state: SS-1 HD
+  action:
+  - service: script.tv_channels_2
+  - service: script.tv_channels_0
+  - service: script.tv_channels_9
+
+- alias: SS-2 HD
+  trigger:
+    platform: state
+    entity_id: input_select.tv_channels
+  condition:
+    condition: state
+    entity_id: input_select.tv_channels
+    state: SS-2 HD
+  action:
+  - service: script.tv_channels_2
+  - service: script.tv_channels_1
+  - service: script.tv_channels_0
+
+- alias: SS-3 HD
+  trigger:
+    platform: state
+    entity_id: input_select.tv_channels
+  condition:
+    condition: state
+    entity_id: input_select.tv_channels
+    state: SS-3 HD
+  action:
+  - service: script.tv_channels_2
+  - service: script.tv_channels_1
+  - service: script.tv_channels_1
+
+- alias: SS-4 HD
+  trigger:
+    platform: state
+    entity_id: input_select.tv_channels
+  condition:
+    condition: state
+    entity_id: input_select.tv_channels
+    state: SS-4 HD
+  action:
+  - service: script.tv_channels_2
+  - service: script.tv_channels_1
+  - service: script.tv_channels_2
+
+- alias: SS-5 HD
+  trigger:
+    platform: state
+    entity_id: input_select.tv_channels
+  condition:
+    condition: state
+    entity_id: input_select.tv_channels
+    state: SS-5 HD
+  action:
+  - service: script.tv_channels_2
+  - service: script.tv_channels_1
+  - service: script.tv_channels_3
+
+- alias: SS-6 HD
+  trigger:
+    platform: state
+    entity_id: input_select.tv_channels
+  condition:
+    condition: state
+    entity_id: input_select.tv_channels
+    state: SS-6 HD
+  action:
+  - service: script.tv_channels_2
+  - service: script.tv_channels_1
+  - service: script.tv_channels_4

@@ -1,0 +1,280 @@
+####################################################
+#                                                  #
+#                      GROUPS                      #
+#                                                  #
+####################################################
+
+  default_view:
+    name: Home
+    view: yes
+    icon: mdi:home
+    entities:
+      - group.living_room
+      - group.hall
+      - group.bedroom 
+      - group.closet
+      - group.bathroom
+      - variable.last_motion
+      - sensor.plex
+      - binary_sensor.norik_home
+
+  media:
+    name: Media
+    view: yes
+    icon: mdi:remote
+    entities:
+      - group.remote_control_livingroom
+      - group.multimedia
+      - media_player.samsung_tv_remote
+      - media_player.spotify
+
+  info:
+    name: Info
+    view: yes
+    icon: mdi:information
+    entities:
+      - group.weather
+      - group.ha_monitor_and_network
+      - group.devices
+      - group.links
+
+  settings:
+    name: Settings
+    view: yes
+    icon: mdi:settings
+    entities:
+      - group.shortcuts
+      - group.lights_automation
+      - group.software_notifications
+      - group.devices_offline_notifications
+      - group.automations
+      - group.actionable_notifications
+      - group.tts
+
+####################################################
+#                                                  #
+#                    SUB-GROUPS                    #
+#                                                  #
+####################################################
+
+  devices:
+    name: Devices
+    entities:
+      - device_tracker.noriksmbp
+      - device_tracker.raspberrypi
+      - device_tracker.broadlink
+      - device_tracker.plex_server
+      - device_tracker.ghlivingroom
+      - device_tracker.ghbedroom
+      - device_tracker.chromecastlr
+      - device_tracker.chromecastbed
+      - device_tracker.ps4
+
+  multimedia:
+    name: Multimedia
+    entities: 
+      - input_text.chromecast_lr_player
+  
+  tracker:
+    name: Tracker
+    entities:
+      - device_tracker.norik
+
+  spotify_player:
+    name: Spotify Player
+    entities:
+      - media_player.spotify
+
+  spotify_controls:
+    name: Spotify Controls
+    control: hidden
+    entities:
+      - input_select.spotify_playlist
+      - input_select.spotify_source
+      - script.spotify_music
+      - input_number.spotify_volume
+
+  shortcuts:
+    name: Shortcuts
+    control: hidden
+    entities:   
+      - script.restart_ha
+      - script.ir_rf_learn
+
+  remote_control_livingroom:
+    name: Remote Control
+    control: hidden
+    entities:
+      - input_select.source
+      - input_select.tv_channels
+      - input_boolean.tv_remote_power
+      - input_boolean.tv_remote
+
+  links:
+    name: Links
+    entities:
+      - weblink.router
+      - weblink.plex
+      - weblink.torrent
+      - weblink.hosting
+      - weblink.home_assistant_forum
+
+  ha_monitor_and_network:
+    name: HA Server & Network Monitor
+    entities:
+      - sensor.processor_use
+      - sensor.memory_use_percent      
+      - sensor.disk_use_percent_home
+      - sensor.db_size
+      - sensor.speedtest_download
+      - sensor.speedtest_upload
+      - sensor.speedtest_ping
+      - sensor.since_last_boot_templated
+      - sensor.installed_version
+      - sensor.latest_release
+      - sensor.tasmota_version
+
+  weather:
+    name: Weather
+    entities:
+      - input_boolean.weather
+      - sensor.us_air_pollution_level_2
+      - sensor.us_air_quality_index_2
+
+  living_room:
+    name: Living Room & Kitchen
+    control: hidden
+    entities:
+      - input_boolean.living_room_lights_power
+      - input_boolean.living_room_lights
+      - input_boolean.kitchen_lights_power
+      - input_boolean.kitchen_lights
+      - device_tracker.sensor_lr
+      - binary_sensor.motion_living_room
+      - sensor.living_room_temperature
+      - sensor.living_room_humidity
+
+  bedroom:
+    name: Bedroom
+    control: hidden
+    entities:
+      - input_boolean.bed_room_lights_power
+      - input_boolean.bed_room_lights
+      - device_tracker.sensor_bed
+      - binary_sensor.motion_bedroom
+      - sensor.bedroom_temperature
+      - sensor.bedroom_humidity
+
+  hall:
+    name: Hall
+    control: hidden
+    entities:
+      - input_boolean.hall_lights_power
+      - input_boolean.hall_lights
+      - device_tracker.sensor_hall
+      - binary_sensor.motion_hall
+      - sensor.hall_temperature
+      - sensor.hall_humidity
+
+  closet:
+    name: Closet Room
+    control: hidden
+    entities:
+      - input_boolean.closet_lights_power
+      - input_boolean.closet_lights
+      - device_tracker.sensor_closet
+      - binary_sensor.motion_closet_room
+      - sensor.closet_temperature
+      - sensor.closet_humidity
+
+  bathroom:
+    name: Bathroom
+    control: hidden
+    entities:
+      - input_boolean.bathroom_lights_power
+      - input_boolean.bathroom_lights
+
+  livingroom_lights:
+    entities:
+      - light.sofa
+      - light.lr_led
+      - light.lr_dots
+      - light.long_dots
+      - light.lr_spotlights
+      - light.balcony
+
+  kitchen_lights:
+    entities:
+      - light.kitchen_strip
+      - light.island
+      - light.dining
+
+  hall_lights:
+    entities:
+      - light.hall_entry
+      - light.hall_led
+      - light.hall_strip
+      - light.hall_spotlight
+      - light.wc
+      - light.utility
+
+  bedroom_lights:
+    entities:
+      - light.bedroom_ceiling
+      - light.bedroom_led
+      - light.bedroom_spotlights
+
+  bathroom_lights:
+    entities:
+      - light.bath_ceiling
+      - light.shower
+      - light.bath_led
+
+  closet_lights:
+    entities:
+      - light.closet_ceiling
+      - light.closet_led
+
+  lights_automation:
+    name: Lights Automation
+    entities:
+      - automation.turn_on_lights_motion__bedroom
+
+  software_notifications:
+    name: Software Notifications
+    entities:
+      - automation.new_release_notifications
+      - automation.air_pollution
+      - automation.cpu_high_alert
+      - automation.tasmota_new_release
+
+  devices_offline_notifications:
+    name: Devices Offline Notifications
+    entities: 
+      - automation.broadlink_offline
+      - automation.gh_living_room_offline
+      - automation.gh_bedroom_offline
+      - automation.plex_offline
+
+  automations:
+    name: Automations
+    entities:
+      - automation.notify_motion_living_room
+
+  sensors:
+    name: Sensors
+    entities:
+      - binary_sensor.motion_bedroom
+      - binary_sensor.motion_closet_room
+      - binary_sensor.motion_hall
+      - binary_sensor.motion_living_room
+
+  actionable_notifications:
+    name: Actionable Notifications
+    entities:
+      - automation.action_message_lights_on
+
+  tts:
+    name: TTS
+    entities:
+      - automation.norik_is_home
