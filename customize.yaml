@@ -4,10 +4,13 @@
 #                                                  #
 ####################################################
 
+    automation.action_message_alarm_on:
+      icon: mdi:gesture-tap
+
     automation.action_message_lights_on:
       icon: mdi:gesture-tap
 
-    automation.norik_is_home:
+    automation.bosses_are_home:
       icon: mdi:voice
 
     input_boolean.weather:

@@ -4,31 +4,57 @@
 #                                                  #
 ####################################################
 
-  spotify_music:
-    alias: "Play selected spotify playlist"
+  panic_flash:
+    alias: 'Flash Lights for Panic'
     sequence:
-      - service: media_player.select_source
-        data_template: 
-          entity_id: media_player.spotify
-          source: >
-            {% if is_state("input_select.spotify_source", "Living TV") %} Living Room TV
-            {% elif is_state("input_select.spotify_source", "Bedroom TV") %} Bedroom TV
-            {% elif is_state("input_select.spotify_source", "Norik's MacBook Pro") %} Norik's MacBook Pro
-            {% elif is_state("input_select.spotify_source", "GH Living") %} Google Home LR
-            {% elif is_state("input_select.spotify_source", "GH Bed") %} Google Home Bed
-            {% elif is_state("input_select.spotify_source", "HOL-30") %} HOL-30
-            {% endif %}
-      - service: media_player.play_media
-        data_template:
-          entity_id: media_player.spotify
-          media_content_type: playlist
-          media_content_id: >
-            {% if is_state("input_select.spotify_playlist", "Cipher") %} spotify:user:nor1k:playlist:42nHKehPy1AjC6nIBT6kfh
-            {% elif is_state("input_select.spotify_playlist", "Hosuing") %} spotify:user:nor1k:playlist:3fxgNoX9ajXaImSaYBFehW
-            {% elif is_state("input_select.spotify_playlist", "Into The Sun") %} spotify:user:nor1k:playlist:71N61xOUd8FD07tA6pn3Kb
-            {% elif is_state("input_select.spotify_playlist", "Reagge Classics") %} spotify:user:nor1k:playlist:6Y51eK09z0wbl4yiP8jFAz
-            {% elif is_state("input_select.spotify_playlist", "Dance") %} spotify:user:nor1k:playlist:4m4VYWVsfsCCQtecSay1tP
-            {% endif %}
+      - service: homeassistant.turn_on
+        data:
+          entity_id: group.all_lights
+      - delay:
+          # time for flash light on
+          seconds: 0.5
+      - service: homeassistant.turn_off
+        data:
+          entity_id: group.all_lights
+      - service: script.turn_on
+        data:
+          entity_id: script.flash_loop
+
+  flash_loop:
+    alias: 'Flash loop'
+    sequence:
+      - delay:
+        # time for flash light off
+          seconds: 0.5
+      - service: script.turn_on
+        data:
+          entity_id: script.panic_flash
+
+#  spotify_music:
+#    alias: "Play selected spotify playlist"
+#    sequence:
+#      - service: media_player.select_source
+#        data_template: 
+#          entity_id: media_player.spotify
+#          source: >
+#            {% if is_state("input_select.spotify_source", "Living TV") %} Living Room TV
+#            {% elif is_state("input_select.spotify_source", "Bedroom TV") %} Bedroom TV
+#            {% elif is_state("input_select.spotify_source", "Norik's MacBook Pro") %} Norik's MacBook Pro
+#            {% elif is_state("input_select.spotify_source", "GH Living") %} Google Home LR
+#            {% elif is_state("input_select.spotify_source", "GH Bed") %} Google Home Bed
+#            {% elif is_state("input_select.spotify_source", "HOL-30") %} HOL-30
+#            {% endif %}
+#      - service: media_player.play_media
+#        data_template:
+#          entity_id: media_player.spotify
+#          media_content_type: playlist
+#          media_content_id: >
+#            {% if is_state("input_select.spotify_playlist", "Cipher") %} spotify:user:nor1k:playlist:42nHKehPy1AjC6nIBT6kfh
+#            {% elif is_state("input_select.spotify_playlist", "Hosuing") %} spotify:user:nor1k:playlist:3fxgNoX9ajXaImSaYBFehW
+#            {% elif is_state("input_select.spotify_playlist", "Into The Sun") %} spotify:user:nor1k:playlist:71N61xOUd8FD07tA6pn3Kb
+#            {% elif is_state("input_select.spotify_playlist", "Reagge Classics") %} spotify:user:nor1k:playlist:6Y51eK09z0wbl4yiP8jFAz
+#            {% elif is_state("input_select.spotify_playlist", "Dance") %} spotify:user:nor1k:playlist:4m4VYWVsfsCCQtecSay1tP
+#            {% endif %}
 
   ir_rf_learn:
     alias: Learn IR

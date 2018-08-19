@@ -15,9 +15,11 @@
       - group.closet
       - group.bathroom
       - variable.last_motion
+      - alarm_control_panel.ha_alarm
       - sensor.plex
       - binary_sensor.norik_home
-
+      - binary_sensor.dafina_home
+      
   media:
     name: Media
     view: yes
@@ -149,6 +151,7 @@
       - input_boolean.living_room_lights
       - input_boolean.kitchen_lights_power
       - input_boolean.kitchen_lights
+      - cover.living_room_covers
       - device_tracker.sensor_lr
       - binary_sensor.motion_living_room
       - sensor.living_room_temperature
@@ -273,8 +276,8 @@
     name: Actionable Notifications
     entities:
       - automation.action_message_lights_on
-
+      - automation.action_message_alarm_on
   tts:
     name: TTS
     entities:
-      - automation.norik_is_home
+      - automation.bosses_are_home

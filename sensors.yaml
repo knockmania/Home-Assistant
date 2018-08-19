@@ -10,46 +10,44 @@
     username: !secret plex_username
     password: !secret plex_password
 
-  - platform: darksky
-    api_key: 25a89cfb36fa890021ca20fdd434d0a8
-    update_interval: 300
-    forecast:
-      - 1
-    monitored_conditions:
-      - temperature
-      - temperature_min
-      - temperature_max
-      - apparent_temperature
-      - wind_speed
-      - humidity
-      - precip_probability
-      - precip_intensity
-      - pressure
-      - wind_bearing
-      - icon
-      - precip_type
-      - precip_intensity
-      - precip_probability
-      - precip_accumulation
-      - daily_summary
+#  - platform: darksky
+#    api_key: 25a89cfb36fa890021ca20fdd434d0a8
+#    update_interval: 300
+#    forecast:
+#      - 1
+#    monitored_conditions:
+#      - temperature
+#      - apparent_temperature
+#      - wind_speed
+#      - humidity
+#      - precip_probability
+#      - precip_intensity
+#      - pressure
+#      - wind_bearing
+#      - icon
+#      - precip_type
+#      - precip_intensity
+#      - precip_probability
+#      - precip_accumulation
+#      - daily_summary
 
-  - platform: template
-    sensors:
-      spotify_volume:
-        friendly_name: "Spotify Volume"
-        value_template: "{{ states.media_player.spotify.attributes.volume_level }}"
+#  - platform: template
+#    sensors:
+#      spotify_volume:
+#        friendly_name: "Spotify Volume"
+#        value_template: "{{ states.media_player.spotify.attributes.volume_level }}"
 
-  - platform: template
-    sensors:
-      spotify_shuffle:
-        friendly_name: "Spotify Shuffle"
-        value_template: "{{ states.media_player.spotify.attributes.shuffle }}"
+#  - platform: template
+#    sensors:
+#      spotify_shuffle:
+#        friendly_name: "Spotify Shuffle"
+#        value_template: "{{ states.media_player.spotify.attributes.shuffle }}"
 
-  - platform: template
-    sensors:
-      spotify_source:
-        friendly_name: "Spotify Source"
-        value_template: "{{ states.media_player.spotify.attributes.source }}"
+#  - platform: template
+#    sensors:
+#      spotify_source:
+#        friendly_name: "Spotify Source"
+#        value_template: "{{ states.media_player.spotify.attributes.source }}"
 
   - platform: yr
 

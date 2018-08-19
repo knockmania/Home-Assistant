@@ -6,5 +6,5 @@
 
   - platform: yweather
   
-  - platform: darksky
-    api_key: !secret darksky_api_key
+  #- platform: darksky
+  #  api_key: !secret darksky_api_key

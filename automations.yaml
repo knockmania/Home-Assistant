@@ -3,8 +3,72 @@
 #                    AUTOMATIONS                   #
 #                                                  #
 ####################################################
-- id: norik_is_home
-  alias: 'Norik is home'
+
+- alias: 'Play Alarm Sound'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: group.sensors
+      to: 'on'
+  condition:
+    condition: state
+    entity_id: alarm_control_panel.ha_alarm
+    state: 'armed_away'
+  action:
+    - service: media_player.volume_set
+      data_template:
+        entity_id: media_player.bedroom_speaker, media_player.living_room_speaker
+        volume_level: '1'
+    - service: media_player.play_media
+      entity_id: media_player.bedroom_speaker, media_player.living_room_speaker
+      data:
+        media_content_id: http://192.168.1.2:8123/local/mp3/alarm.mp3
+        media_content_type: audio/mp3
+
+- alias: "Stop Alarm Sound"
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.ha_alarm
+      to: 'disarmed'
+  action:
+    - service: media_player.media_stop
+      data:
+        entity_id: media_player.bedroom_speaker, media_player.living_room_speaker
+    - service: media_player.volume_set
+      data_template:
+        entity_id: media_player.bedroom_speaker, media_player.living_room_speaker
+        volume_level: '0.5'
+
+
+- id: start_flashing_lights
+  alias: 'Start Flashing Lights'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: group.sensors
+      to: 'on'
+  condition:
+    condition: state
+    entity_id: alarm_control_panel.ha_alarm
+    state: 'armed_away'
+  action:
+    service: script.flash_loop
+
+- alias: "Stop Flashing Lights"
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.ha_alarm
+      to: 'disarmed'
+  action:
+    - service: script.turn_off
+      entity_id: script.flash_loop
+    - service: script.turn_off
+      entity_id: script.panic_flash
+
+- id: people_are_home
+  alias: 'Bosses Are Home'
   initial_state: 'on'
   trigger:
     - platform: state
@@ -12,9 +76,9 @@
       from: 'off'
       to: 'on'
     - platform: state
-      entity_id: device_tracker.dafina
-      from: 'not_home'
-      to: 'home'
+      entity_id: binary_sensor.dafina_home
+      from: 'off'
+      to: 'on'
   condition:
     condition: time
     after: '11:30:00'
@@ -23,7 +87,41 @@
     service: tts.google_say
     entity_id: media_player.living_room_speaker
     data:
-      message: 'Hi Norik, Welcome Home'
+      message: 'Hey, Welcome Home'
+
+- id: action_message_alarm_on
+  alias: 'Action Message Alarm On'
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: group.sensors
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: alarm_control_panel.ha_alarm
+      state: 'armed_away'
+  action:
+    service: notify.ios_norik
+    data:
+      message: 'ALARM! You have an Intruder'
+      data:
+        push:
+          badge: 0
+          category: "alarm"
+        action_data:
+          entity_id: alarm_control_panel.ha_alarm
+
+- id: action_message_alarm_on_2
+  alias: 'Action Message Alarm On 2'
+  initial_state: 'on'
+  trigger:
+    - platform: event
+      event_type: ios.notification_action_fired
+      event_data: 
+        actionName: DISARM
+  action:
+    service: alarm_control_panel.alarm_disarm
+    entity_id: alarm_control_panel.ha_alarm
 
 - id: action_message_lights_on
   alias: 'Action Message Lights On'
@@ -70,31 +168,31 @@
       entity_id: media_player.spotify
       volume_level: '{{  states.input_number.spotify_volume.state | int / 100  }}'
   
-- alias: 'Spotify Volume (Sync)'
-  trigger:
-    - platform: homeassistant
-      event: start
-    - platform: state
-      entity_id: sensor.spotify_volume
-  action:
-    - delay:
-        seconds: 5
-    - service: input_number.set_value
-      data_template:
-        entity_id: input_number.spotify_volume
-        value: '{{  states.sensor.spotify_volume.state | float | round(2) * 100  }}'
+#- alias: 'Spotify Volume (Sync)'
+#  trigger:
+#    - platform: homeassistant
+#      event: start
+#    - platform: state
+#      entity_id: sensor.spotify_volume
+#  action:
+#    - delay:
+#        seconds: 5
+#    - service: input_number.set_value
+#      data_template:
+#        entity_id: input_number.spotify_volume
+#        value: '{{  states.sensor.spotify_volume.state | float | round(2) * 100  }}'
 
-- alias: Spotify Source (Sync)
-  trigger:
-    - platform: homeassistant
-      event: start
-    - platform: state
-      entity_id: sensor.spotify_source
-  action:
-    service: input_select.select_option
-    entity_id: input_select.spotify_source
-    data_template:
-      option: '{{  states.sensor.spotify_source.state  }}'
+#- alias: Spotify Source (Sync)
+#  trigger:
+#    - platform: homeassistant
+#      event: start
+#    - platform: state
+#      entity_id: sensor.spotify_source
+#  action:
+#    service: input_select.select_option
+#    entity_id: input_select.spotify_source
+#    data_template:
+#      option: '{{  states.sensor.spotify_source.state  }}'
 
 # Update Last Motion variable
 - alias: "Update Last Motion"
