@@ -51,4 +51,12 @@
         friendly_name: Dafina
         device_class: presence
         value_template: >-
-          {{ is_state('device_tracker.dafina', 'home') }}
+          {{ is_state('device_tracker.dafina', 'home')
+             or is_state('device_tracker.dafina_bt', 'home') }}
+
+  - platform: command_line
+    name: WAN
+    command: "/home/homeassistant/.homeassistant/wan_test.sh"
+    device_class: connectivity
+    payload_on: "Up"
+    payload_off: "Down"
