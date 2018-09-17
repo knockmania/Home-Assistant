@@ -32,7 +32,7 @@
     retain: true
 
   - platform: mqtt
-    name: "Bedroom Ceiling"
+    name: "Bedroom Dots"
     command_topic: "cmnd/bedroom_2/POWER1"
     state_topic: "stat/bedroom_2/POWER1"
     qos: 1

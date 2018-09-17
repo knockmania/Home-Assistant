@@ -11,9 +11,6 @@ homeassistant:
     script:
       custom_ui_state_card: state-card-script-custom-text
 
-customizer:
-  custom_ui: local
-
 tts:
   - platform: google
 
@@ -21,29 +18,7 @@ alarm_control_panel:
   - platform: manual
     pending_time: 5
 
-cover:
-  - platform: mqtt
-    name: "Living Room Covers"
-    command_topic: "home-assistant/cover/set"
-    state_topic: "home-assistant/cover/state"
-    availability_topic: "home-assistant/cover/availability"
-    qos: 0
-    retain: true
-    payload_open: "OPEN"
-    payload_close: "CLOSE"
-    payload_stop: "STOP"
-    state_open: "open"
-    state_closed: "closed"
-    payload_available: "online"
-    payload_not_available: "offline"
-    optimistic: false
-    value_template: '{{ value.x }}'
-    tilt_command_topic: 'home-assistant/cover/tilt'
-    tilt_status_topic: 'home-assistant/cover/tilt-state'
-    tilt_min: 0
-    tilt_max: 180
-    tilt_closed_value: 70
-    tilt_opened_value: 180
+cover: !include covers.yaml
 
 config:
 
@@ -65,6 +40,8 @@ notify:
 
 python_script:
 
+camera: !include camera.yaml
+
 ios: !include ios.yaml
 
 weather: !include weather.yaml
@@ -78,8 +55,8 @@ history: !include history.yaml
 panel_iframe: !include panel_iframe.yaml
 
 input_number: !include input_number.yaml
-  
-variable: !include variables.yaml
+
+input_text: !include input_text.yaml
 
 switch: !include switches.yaml
 

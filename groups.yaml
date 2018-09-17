@@ -14,21 +14,23 @@
       - group.bedroom 
       - group.closet
       - group.bathroom
-      - variable.last_motion
       - alarm_control_panel.ha_alarm
       - sensor.plex
       - binary_sensor.norik_home
       - binary_sensor.dafina_home
-      
+
   media:
     name: Media
     view: yes
     icon: mdi:remote
     entities:
       - group.remote_control_livingroom
-      - group.multimedia
-      - media_player.samsung_tv_remote
-      - media_player.spotify
+      #- group.multimedia
+      #- media_player.samsung_tv_remote
+      - media_player.living_room_tv
+      - media_player.living_room_speaker
+      - media_player.bedroom_speaker
+      - media_player.bedroom_tv
 
   info:
     name: Info
@@ -38,7 +40,7 @@
       - group.weather
       - group.ha_monitor_and_network
       - group.devices
-      - group.links
+      #- group.links
 
   settings:
     name: Settings
@@ -76,6 +78,12 @@
     name: Multimedia
     entities: 
       - input_text.chromecast_lr_player
+
+  people:
+    name: People
+    entities:
+      - binary_sensor.norik_home
+      - binary_sensor.dafina_home
   
   tracker:
     name: Tracker
@@ -107,10 +115,11 @@
     name: Remote Control
     control: hidden
     entities:
-      - input_select.source
-      - input_select.tv_channels
       - input_boolean.tv_remote_power
+      - input_boolean.hdmi
+      - input_boolean.ipko_remote_power
       - input_boolean.tv_remote
+      - input_select.tv_channels
 
   links:
     name: Links
@@ -124,14 +133,13 @@
   ha_monitor_and_network:
     name: HA Server & Network Monitor
     entities:
+      - binary_sensor.wan
       - sensor.processor_use
       - sensor.memory_use_percent      
       - sensor.disk_use_percent_home
       - sensor.db_size
       - sensor.speedtest_download
       - sensor.speedtest_upload
-      - sensor.speedtest_ping
-      - binary_sensor.wan
       - sensor.since_last_boot_templated
       - sensor.installed_version
       - sensor.latest_release
@@ -140,6 +148,7 @@
   weather:
     name: Weather
     entities:
+      #- weather.yweather
       - input_boolean.weather
       - sensor.us_air_pollution_level_2
       - sensor.us_air_quality_index_2
@@ -148,48 +157,40 @@
     name: Living Room & Kitchen
     control: hidden
     entities:
+      - input_text.sensors_lr
       - input_boolean.living_room_lights_power
       - input_boolean.living_room_lights
       - input_boolean.kitchen_lights_power
       - input_boolean.kitchen_lights
-      - cover.living_room_covers
-      - device_tracker.sensor_lr
-      - binary_sensor.motion_living_room
-      - sensor.living_room_temperature
-      - sensor.living_room_humidity
+      - climate.air_condition
+      - cover.south
+      - cover.balcony
+      - cover.kitchen
 
   bedroom:
     name: Bedroom
     control: hidden
     entities:
+      - input_text.sensors_bedroom
       - input_boolean.bed_room_lights_power
       - input_boolean.bed_room_lights
-      - device_tracker.sensor_bed
-      - binary_sensor.motion_bedroom
-      - sensor.bedroom_temperature
-      - sensor.bedroom_humidity
+      - cover.bedroom
 
   hall:
     name: Hall
     control: hidden
     entities:
+      - input_text.sensors_hall
       - input_boolean.hall_lights_power
       - input_boolean.hall_lights
-      - device_tracker.sensor_hall
-      - binary_sensor.motion_hall
-      - sensor.hall_temperature
-      - sensor.hall_humidity
 
   closet:
     name: Closet Room
     control: hidden
     entities:
-      - input_boolean.closet_lights_power
+      - input_text.sensors_closet
       - input_boolean.closet_lights
-      - device_tracker.sensor_closet
-      - binary_sensor.motion_closet_room
-      - sensor.closet_temperature
-      - sensor.closet_humidity
+      - cover.closet
 
   bathroom:
     name: Bathroom
@@ -237,7 +238,6 @@
   closet_lights:
     entities:
       - light.closet_ceiling
-      - light.closet_led
 
   lights_automation:
     name: Lights Automation

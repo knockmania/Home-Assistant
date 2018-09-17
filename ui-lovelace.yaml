@@ -1,0 +1,73 @@
+title: My Awesome Home
+# Include external resources
+resources:
+  - url: /local/my-custom-card.js
+    type: js
+  - url: /local/my-webfont.css
+    type: css
+
+background: center / cover no-repeat url("/background.png") fixed
+excluded_entities:
+  - weblink.router
+views:
+  - title: Home
+    icon: mdi:home
+    id: example
+    background: radial-gradient(crimson, skyblue)
+    theme: dark-mode
+    cards:
+
+      - type: entity-filter
+        type: glance
+        title: People that are home
+        entities:
+          - device_tracker.knock
+        state_filter:
+          - 'home'
+      - type: entities
+        title: Living / Kitchen
+        entities:
+          - entity: light.sofa
+            icon: mdi:ceiling-light
+          - light.lr_led
+          - light.lr_dots
+          - light.long_dots
+          - light.lr_spotlights
+          - light.balcony
+          - type: divider
+          - light.kitchen_strip
+          - light.island
+          - light.dining
+          - type: divider
+          - cover.living_room_covers
+          - device_tracker.sensor_lr
+          - binary_sensor.motion_living_room
+          - sensor.living_room_temperature
+          - sensor.living_room_humidity
+
+      - type: weather-forecast
+        entity: weather.yweather
+
+    # Specify a tab icon if you want the view tab to be an icon.
+  - icon: mdi:home-assistant
+    # Title of the view. Will be used as the tooltip for tab icon
+    title: Second view
+    cards:
+        # Entities card will take a list of entities and show their state.
+      - type: entities
+        # Title of the entities card
+        title: Example
+        # The entities here will be shown in the same order as specified.
+        # Each entry is an entity ID or a map with extra options.
+        entities:
+          - light.kitchen
+          - switch.ac
+          - entity: light.living_room
+            # Override the name to use
+            name: LR Lights
+
+        # The markdown card will render markdown text.
+      - type: markdown
+        title: Lovelace
+        content: >
+          Welcome to your **Lovelace UI**.

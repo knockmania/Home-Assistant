@@ -166,25 +166,6 @@
 #    data_template:
 #      option: '{{  states.sensor.spotify_source.state  }}'
 
-# Update Last Motion variable
-- alias: "Update Last Motion"
-  trigger:
-    - platform: state
-      entity_id: binary_sensor.motion_bedroom, binary_sensor.motion_closet_room, binary_sensor.motion_hall, binary_sensor.motion_living_room
-      to: 'on'
-  action:
-    - service: variable.set_variable
-      data:
-        variable: last_motion
-        attributes_template: >
-            {
-              "history_1": "{{ variable.state }}",
-              "history_2": "{{ variable.attributes.history_1 }}",
-              "history_3": "{{ variable.attributes.history_2 }}"
-            }
-      data_template:
-        value: "{{ trigger.to_state.attributes.friendly_name }}"
-
 - alias: Turn on Lights Motion - Bedroom
   trigger:
     platform: state
@@ -205,15 +186,15 @@
     - service: light.turn_on
       entity_id: light.bedroom_spotlights
 
-- alias: Turn off Lights After 10 Minutes with No Motion
-  trigger:
-    platform: state
-    entity_id: binary_sensor.motion_bedroom
-    to: 'off'
-    for: '00:10:00'
-  action:
-    - service: light.turn_off
-      entity_id: light.bedroom_spotlights
+#- alias: Turn off Lights After 10 Minutes with No Motion
+#  trigger:
+#    platform: state
+#    entity_id: binary_sensor.motion_bedroom
+#    to: 'off'
+#    for: '00:10:00'
+#  action:
+#    - service: light.turn_off
+#      entity_id: light.bedroom_spotlights
 
 - alias: Turn Off TV When No One Is Home
   trigger: 
@@ -352,7 +333,7 @@
         Raspberry Pi CPU is high.
 
 ####################################################                                                  
-#                   Channel List                   #                                                  
+#                     HDMI List                    #                                                  
 ####################################################
 
 - alias: HDMI 1
@@ -364,9 +345,7 @@
     entity_id: input_select.source
     state: HDMI 1
   action:
-  - service: script.middle_button
-  - service: script.up_button
-  - service: script.middle_button
+  - service: script.hdmi1
 
 - alias: HDMI 2
   trigger:
@@ -377,9 +356,7 @@
     entity_id: input_select.source
     state: HDMI 2
   action:
-  - service: script.middle_button
-  - service: script.down_button
-  - service: script.middle_button
+  - service: script.hdmi2
 
 - alias: HDMI 3
   trigger:

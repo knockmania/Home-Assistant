@@ -11,3 +11,28 @@
     initial_operation_mode: "off"
     target_temp: 21
     ac_mode: False
+
+  - platform: demo
+
+  - platform: broadlink
+    name: Air Condition
+    host: 192.168.1.3
+    mac: !secret broadlink_mac
+    ircodes_ini: 'broadlink_climate_codes/air_condition.ini'
+    min_temp: 16
+    max_temp: 30
+    target_temp: 20
+    target_temp_step: 1
+    temp_sensor: sensor.living_room_temperature
+    default_operation: 'off'
+    default_fan_mode: mid
+    customize:
+      operations:
+        - 'off'
+        - cool
+        - heat
+      fan_modes:
+        - low
+        - mid
+        - high
+        - auto

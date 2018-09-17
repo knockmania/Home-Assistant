@@ -59,15 +59,6 @@
       friendly_name: Bedroom Light
       icon: mdi:lightbulb-on-outline
 
-    input_boolean.fake:
-      hidden: true
-
-    input_text.chromecast_lr_player:
-      icon: mdi:cast
-      custom_ui_state_card: state-card-mini-media-player
-      config:
-        player: media_player.chromecast_living_room
-
     input_boolean.tv_remote_power:
       custom_ui_state_card: state-card-tiles
       config:
@@ -79,18 +70,58 @@
         color_off: '#555B65'
         text_size: '0.70em'
         entities:
-          - entity: switch.tv_livingroom
-            label: Sony TV
+          - entity: switch.samsung
+            label: Samsung TV
             icon: mdi:power
             row: 1
             column: 1
             color_on: red
             color_off: '#04A9F4'
+
+    input_boolean.hdmi:
+      custom_ui_state_card: state-card-tiles
+      config:
+        columns: 4
+        column_width: 83px
+        row_height: 40px
+        color: '#999999'
+        color_on: '#999999'
+        color_off: '#999999'
+        text_size: '0.80em'
+        entities:
+          - entity: script.hdmi1
+            label: HDMI 1
+            icon: mdi:video-input-hdmi
+            row: 1
+          - entity: script.hdmi2
+            label: HDMI 2
+            icon: mdi:video-input-hdmi
+            row: 1
+          - entity: script.hdmi3
+            label: HDMI 3
+            icon: mdi:video-input-hdmi
+            row: 1
+          - entity: script.hdmi4
+            label: HDMI 4
+            icon: mdi:video-input-hdmi
+            row: 1
+
+    input_boolean.ipko_remote_power:
+      custom_ui_state_card: state-card-tiles
+      config:
+        columns: 3
+        column_width: 111px
+        row_height: 30px
+        color: '#555B65'
+        color_on: '#F0C209'
+        color_off: '#555B65'
+        text_size: '0.70em'
+        entities:
           - entity: switch.tv_ipko 
             label: IPKO
             icon: mdi:power
             row: 1
-            column: 2
+            column: 1
             color_on: red
             color_off: '#04A9F4'
 
@@ -157,7 +188,7 @@
             icon: mdi:square-outline
             row: 1
           - entity: light.lr_dots
-            label: Dots
+            label: TV
             icon: mdi:dots-horizontal
             row: 1
           - entity: light.long_dots
@@ -173,30 +204,11 @@
             icon: mdi:border-right-variant
             row: 2
 
-    input_boolean.closet_lights_power:
-      custom_ui_state_card: state-card-tiles
-      config:
-        columns: 3
-        column_width: 111px
-        row_height: 30px
-        color: '#555B65'
-        color_on: '#F0C209'
-        color_off: '#555B65'
-        text_size: '0.70em'
-        entities:
-          - entity: group.closet_lights
-            label: Power All
-            icon: mdi:power
-            row: 1
-            column: 1
-            color_on: red
-            color_off: '#04A9F4'
-
     input_boolean.closet_lights:
       custom_ui_state_card: state-card-tiles
       config:
-        columns: 2
-        column_width: 168px
+        columns: 1
+        column_width: 340px
         row_height: 40px
         color: '#999999'
         color_on: '#F0C209'
@@ -206,10 +218,6 @@
           - entity: light.closet_ceiling
             label: Main
             icon: mdi:ceiling-light
-            row: 1
-          - entity: light.closet_led
-            label: Led
-            icon: mdi:square-outline
             row: 1
 
     input_boolean.bathroom_lights_power:
@@ -383,9 +391,9 @@
         color_off: '#999999'
         text_size: '0.70em'
         entities:
-          - entity: light.bedroom_ceiling
-            label: Main
-            icon: mdi:ceiling-light
+          - entity: light.bedroom_dots
+            label: Dots
+            icon: mdi:dots-horizontal
             row: 1
           - entity: light.bedroom_led
             label: Led
@@ -396,24 +404,201 @@
             icon: mdi:spotlight-beam
             row: 1
 
+    input_text.sensors_lr:
+      custom_ui_state_card: state-card-tiles
+      config:
+        columns: 4
+        column_width: 83.25px
+        row_height: 30px
+        text_size: '0.80em'
+        gap: 0px
+        entities:
+          - entity: device_tracker.sensor_lr
+            friendly_name: Sensor LR
+            label_template: "if (entities['device_tracker.sensor_lr'].state === 'home') return 'On'; else return 'Off';"
+            icon: mdi:checkbox-multiple-blank-circle
+            row: 1
+            color: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            color_on: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            color_off: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            text_color_on: '#F0C209'
+            text_color_off: '#ffffff'
+          - entity: binary_sensor.motion_living_room
+            label_template: "if (entities['binary_sensor.motion_living_room'].state === 'on') return 'Detect'; else return 'Clear';"
+            icon: mdi:run-fast  
+            row: 1
+            color: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            color_on: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            color_off: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            text_color_on: '#F0C209'
+            text_color_off: '#ffffff'
+          - entity: sensor.living_room_temperature
+            label_template: return entities['sensor.living_room_temperature'].state + ' °C ';
+            icon: mdi:thermometer
+            row: 1
+            color: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            color_on: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            color_off: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            text_color: '#ffffff'
+          - entity: sensor.living_room_humidity
+            label_template: return entities['sensor.living_room_humidity'].state + ' % ';
+            icon: mdi:water-percent
+            row: 1
+            color: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            color_on: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            color_off: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            text_color: '#ffffff'
+
+    input_text.sensors_hall:
+      custom_ui_state_card: state-card-tiles
+      config:
+        columns: 4
+        column_width: 83.25px
+        row_height: 30px
+        text_size: '0.80em'
+        gap: 0px
+        entities:
+          - entity: device_tracker.sensor_hall
+            label_template: "if (entities['device_tracker.sensor_hall'].state === 'home') return 'On'; else return 'Off';"
+            icon: mdi:checkbox-multiple-blank-circle
+            row: 1
+            color: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            color_on: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            color_off: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            text_color_on: '#F0C209'
+            text_color_off: '#ffffff'
+          - entity: binary_sensor.motion_hall
+            label_template: "if (entities['binary_sensor.motion_hall'].state === 'on') return 'Detect'; else return 'Clear';"
+            icon: mdi:run-fast  
+            row: 1
+            color: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            color_on: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            color_off: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            text_color_on: '#F0C209'
+            text_color_off: '#ffffff'
+          - entity: sensor.hall_temperature
+            label_template: return entities['sensor.hall_temperature'].state + ' °C ';
+            icon: mdi:thermometer
+            row: 1
+            color: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            color_on: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            color_off: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            text_color: '#ffffff'
+          - entity: sensor.hall_humidity
+            label_template: return entities['sensor.hall_humidity'].state + ' % ';
+            icon: mdi:water-percent
+            row: 1
+            color: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            color_on: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            color_off: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            text_color: '#ffffff'                           
+
+    input_text.sensors_bedroom:
+      custom_ui_state_card: state-card-tiles
+      config:
+        columns: 4
+        column_width: 83.25px
+        row_height: 30px
+        text_size: '0.80em'
+        gap: 0px
+        entities:
+          - entity: device_tracker.sensor_bed
+            label_template: "if (entities['device_tracker.sensor_bed'].state === 'home') return 'On'; else return 'Off';"
+            icon: mdi:checkbox-multiple-blank-circle
+            row: 1
+            color: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            color_on: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            color_off: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            text_color_on: '#F0C209'
+            text_color_off: '#ffffff'
+          - entity: binary_sensor.motion_bedroom
+            label_template: "if (entities['binary_sensor.motion_bedroom'].state === 'on') return 'Detect'; else return 'Clear';"
+            icon: mdi:run-fast  
+            row: 1
+            color: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            color_on: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            color_off: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            text_color_on: '#F0C209'
+            text_color_off: '#ffffff'
+          - entity: sensor.bedroom_temperature
+            label_template: return entities['sensor.bedroom_temperature'].state + ' °C ';
+            icon: mdi:thermometer
+            row: 1
+            color: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            color_on: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            color_off: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            text_color: '#ffffff'
+          - entity: sensor.bedroom_humidity
+            label_template: return entities['sensor.bedroom_humidity'].state + ' % ';
+            icon: mdi:water-percent
+            row: 1
+            color: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            color_on: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            color_off: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            text_color: '#ffffff'   
+
+    input_text.sensors_closet:
+      custom_ui_state_card: state-card-tiles
+      config:
+        columns: 4
+        column_width: 83.25px
+        row_height: 30px
+        text_size: '0.80em'
+        gap: 0px
+        entities:
+          - entity: device_tracker.sensor_closet
+            label_template: "if (entities['device_tracker.sensor_closet'].state === 'home') return 'On'; else return 'Off';"
+            icon: mdi:checkbox-multiple-blank-circle
+            row: 1
+            color: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            color_on: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            color_off: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            text_color_on: '#F0C209'
+            text_color_off: '#ffffff'
+          - entity: binary_sensor.motion_closet_room
+            label_template: "if (entities['binary_sensor.motion_closet_room'].state === 'on') return 'Detect'; else return 'Clear';"
+            icon: mdi:run-fast  
+            row: 1
+            color: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            color_on: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            color_off: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            text_color_on: '#F0C209'
+            text_color_off: '#ffffff'
+          - entity: sensor.closet_temperature
+            label_template: return entities['sensor.closet_temperature'].state + ' °C ';
+            icon: mdi:thermometer
+            row: 1
+            color: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            color_on: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            color_off: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            text_color: '#ffffff'
+          - entity: sensor.closet_humidity
+            label_template: return entities['sensor.closet_humidity'].state + ' % ';
+            icon: mdi:water-percent
+            row: 1
+            color: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            color_on: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            color_off: 'hsla(0, 0%, 98%, 0)'    #whitetransparent
+            text_color: '#ffffff'
+
     sun.sun:
       templates:
         icon: if (state === 'above_horizon') return 'mdi:weather-sunny'; else return 'mdi:weather-night';
 
     sensor.db_size:
-      custom_ui_state_card: state-card-custom-ui
-      state_card_mode: badges
+      #custom_ui_state_card: state-card-custom-ui
+      #state_card_mode: badges
       friendly_name: DB size
       icon: mdi:database
-      templates:
-        theme: >
-          if (state > 500) {
-            return 'hot';
-          } else if (state >= 250 ) {
-            return 'warm';
-          } else {
-            return 'cold';
-          }
+      #templates:
+      #  theme: >
+      #    if (state > 500) {
+      #      return 'hot';
+      #    } else if (state >= 250 ) {
+      #      return 'warm';
+      #    } else {
+      #      return 'cold';
+      #    }
 
     sensor.us_air_pollution_level:
       friendly_name: Air Pollution Level
@@ -421,126 +606,30 @@
     sensor.us_air_quality_index:
       friendly_name: Air Quality Index
 
-    sensor.closet_temperature:
-      friendly_name: Temperature
-      custom_ui_state_card: state-card-custom-ui
-      show_last_changed: true
+    #sensor.living_room_humidity:
+      #friendly_name: Humidity
+      #custom_ui_state_card: state-card-custom-ui
+      #show_last_changed: true
+      #icon: mdi:water-percent
 
-    sensor.closet_humidity:
-      friendly_name: Humidity
-      custom_ui_state_card: state-card-custom-ui
-      show_last_changed: true
-      icon: mdi:water-percent
+    #binary_sensor.motion_closet_room:
+      #custom_ui_state_card: state-card-custom-ui
+      #show_last_changed: true
+      #friendly_name: Closet Room Motion
+      #icon: mdi:run-fast      
+      #templates:
+        #state: if (state === 'on') return 'Detected'; else return 'Clear';
+        #hs_color: "if (state === 'on') return [48, 96];"
+        #icon: if (state === 'on') return 'mdi:run-fast'; else return 'mdi:walk';
 
-    sensor.hall_temperature:
-      friendly_name: Temperature
-      custom_ui_state_card: state-card-custom-ui
-      show_last_changed: true
-
-    sensor.hall_humidity:
-      friendly_name: Humidity
-      custom_ui_state_card: state-card-custom-ui
-      show_last_changed: true
-      icon: mdi:water-percent
-
-    sensor.bedroom_temperature:
-      custom_ui_state_card: state-card-custom-ui
-      show_last_changed: true
-
-    sensor.living_room_humidity:
-      friendly_name: Humidity
-      custom_ui_state_card: state-card-custom-ui
-      show_last_changed: true
-      icon: mdi:water-percent
-
-    sensor.bedroom_humidity:
-      custom_ui_state_card: state-card-custom-ui
-      show_last_changed: true
-      icon: mdi:water-percent
-
-    binary_sensor.motion_living_room:
-      custom_ui_state_card: state-card-custom-ui
-      show_last_changed: true
-      friendly_name: Living Room Motion
-      icon: mdi:run-fast      
-      templates:
-        state: if (state === 'on') return 'Detected'; else return 'Clear';
-        hs_color: "if (state === 'on') return [48, 96];"
-        icon: if (state === 'on') return 'mdi:run-fast'; else return 'mdi:walk';
-
-    binary_sensor.motion_bedroom:
-      custom_ui_state_card: state-card-custom-ui
-      show_last_changed: true
-      friendly_name: Bedroom Motion
-      icon: mdi:run-fast      
-      templates:
-        state: if (state === 'on') return 'Detected'; else return 'Clear';
-        hs_color: "if (state === 'on') return [48, 96];"
-        icon: if (state === 'on') return 'mdi:run-fast'; else return 'mdi:walk';
-
-    binary_sensor.motion_closet_room:
-      custom_ui_state_card: state-card-custom-ui
-      show_last_changed: true
-      friendly_name: Closet Room Motion
-      icon: mdi:run-fast      
-      templates:
-        state: if (state === 'on') return 'Detected'; else return 'Clear';
-        hs_color: "if (state === 'on') return [48, 96];"
-        icon: if (state === 'on') return 'mdi:run-fast'; else return 'mdi:walk';
-
-    binary_sensor.motion_hall:
-      custom_ui_state_card: state-card-custom-ui
-      show_last_changed: true
-      friendly_name: Hall Motion
-      icon: mdi:run-fast      
-      templates:
-        state: if (state === 'on') return 'Detected'; else return 'Clear';
-        hs_color: "if (state === 'on') return [48, 96];"
-        icon: if (state === 'on') return 'mdi:run-fast'; else return 'mdi:walk';
-
-    binary_sensor.bayesian_binary_sensor:
-      friendly_name: Norik
-      icon: mdi:human-male
-      device_class: presence
-      templates:
-        state: if (state === 'on') return 'Home'; else return 'Away';
-        hs_color: "if (state === 'on') return [48, 96];" 
-
-    device_tracker.sensor_hall:
-      custom_ui_state_card: state-card-custom-ui
-      extra_data_template: 192.168.1.102
-      friendly_name: Sensor Status
-      icon: mdi:disk   
-      templates:
-        state: if (state === 'home') return 'On'; else return 'Off';
-        hs_color: "if (state === 'home') return [48, 96];"
-
-    device_tracker.sensor_bed:
-      custom_ui_state_card: state-card-custom-ui
-      extra_data_template: 192.168.1.104
-      friendly_name: Sensor Status
-      icon: mdi:disk   
-      templates:
-        state: if (state === 'home') return 'On'; else return 'Off';
-        hs_color: "if (state === 'home') return [48, 96];"
-
-    device_tracker.sensor_lr:  
-      custom_ui_state_card: state-card-custom-ui
-      extra_data_template: 192.168.1.101
-      friendly_name: Sensor Status
-      icon: mdi:disk   
-      templates:
-        state: if (state === 'home') return 'On'; else return 'Off';
-        hs_color: "if (state === 'home') return [48, 96];"
-
-    device_tracker.sensor_closet:  
-      custom_ui_state_card: state-card-custom-ui
-      extra_data_template: 192.168.1.103
-      friendly_name: Sensor Status
-      icon: mdi:disk   
-      templates:
-        state: if (state === 'home') return 'On'; else return 'Off';
-        hs_color: "if (state === 'home') return [48, 96];"
+    #device_tracker.sensor_bed:
+      #custom_ui_state_card: state-card-custom-ui
+      #extra_data_template: 192.168.1.104
+      #friendly_name: Sensor Status
+      #icon: mdi:disk   
+      #templates:
+        #state: if (state === 'home') return 'On'; else return 'Off';
+        #hs_color: "if (state === 'home') return [48, 96];"
 
     device_tracker.noriksmbp:
       custom_ui_state_card: state-card-custom-ui
@@ -634,49 +723,48 @@
         hs_color: "if (state === 'home') return [48, 96];"
 
     sensor.speedtest_download:
-      custom_ui_state_card: state-card-custom-ui
-      state_card_mode: badges
+      #custom_ui_state_card: state-card-custom-ui
+      #state_card_mode: badges
       friendly_name: Download
       icon: mdi:arrow-down
-      templates:
-        hs_color: >
-          if (state >= 20) {
-            return 'green';
-          } else if (state > 13 ) {
-            return 'warm';
-          } else {
-            return 'hot';
-          }
+      #templates:
+      #  hs_color: >
+      #    if (state >= 20) {
+      #      return 'green';
+      #    } else if (state > 13 ) {
+      #      return 'warm';
+      #    } else {
+      #      return 'hot';
+      #    }
 
     sensor.speedtest_upload:
-      custom_ui_state_card: state-card-custom-ui
-      state_card_mode: badges
+      #custom_ui_state_card: state-card-custom-ui
+      #state_card_mode: badges
       friendly_name: Upload
-      icon: mdi:arrow-up
-      templates:
-        theme: >
-          if (state < 5) {
-            return 'hot';
-          } else if (state =< 8 ) {
-            return 'warm';
-          } else {
-            return 'cold';
-          }
-
+      #icon: mdi:arrow-up
+      #templates:
+       # theme: >
+       #   if (state < 5) {
+       #     return 'hot';
+       #   } else if (state =< 8 ) {
+       #     return 'warm';
+       #   } else {
+       #     return 'cold';
+       #   }
 
     sensor.speedtest_ping:
-      custom_ui_state_card: state-card-custom-ui
-      state_card_mode: badges
+      #custom_ui_state_card: state-card-custom-ui
+      #state_card_mode: badges
       friendly_name: Ping
-      templates:
-        theme: >
-          if (state > 100) {
-            return 'hot';
-          } else if (state >= 55 ) {
-            return 'warm';
-          } else {
-            return 'cold';
-          }
+      #templates:
+      #  theme: >
+      #    if (state > 100) {
+      #      return 'hot';
+      #    } else if (state >= 55 ) {
+      #      return 'warm';
+      #    } else {
+      #      return 'cold';
+      #    }
    
     sensor.weather_summary:
       friendly_name: Weather
@@ -685,12 +773,12 @@
       friendly_name: Temperature
 
     script.restart_ha:
-      friendly_name: Restart HA
+      friendly_name: Home Assistant
       custom_text: "Restart"
       icon: mdi:power
 
     script.ir_rf_learn:
-      friendly_name: IR/RF Learn
+      friendly_name: IR/RF Codes
       custom_text: "Learn"
       icon: mdi:barcode-scan
 
@@ -745,45 +833,45 @@
       icon: mdi:clock
 
     sensor.processor_use:
-      custom_ui_state_card: state-card-custom-ui
-      state_card_mode: badges
+      #custom_ui_state_card: state-card-custom-ui
+      #state_card_mode: badges
       friendly_name: CPU Load
       icon: mdi:chip
-      templates:
-        theme: >
-          if (state > 80) {
-            return 'hot';
-          } else if (state >= 50 ) {
-            return 'warm';
-          } else {
-            return 'cold';
-          }
+      #templates:
+        #theme: >
+          #if (state > 80) {
+          #  return 'hot';
+          #} else if (state >= 50 ) {
+          #  return 'warm';
+          #} else {
+          #  return 'cold';
+          #}
 
     sensor.memory_use_percent:
-      custom_ui_state_card: state-card-custom-ui
-      state_card_mode: badges
+      #custom_ui_state_card: state-card-custom-ui
+      #state_card_mode: badges
       friendly_name: Memory Load
-      templates:
-        theme: >
-          if (state > 80) {
-            return 'hot';
-          } else if (state >= 50 ) {
-            return 'warm';
-          } else {
-            return 'cold';
-          }
+      #templates:
+        #theme: >
+          #if (state > 80) {
+            #return 'hot';
+          #} else if (state >= 50 ) {
+          #  return 'warm';
+          #} else {
+          #  return 'cold';
+          #}
 
     sensor.disk_use_percent_home:
-      custom_ui_state_card: state-card-custom-ui
-      state_card_mode: badges
+      #custom_ui_state_card: state-card-custom-ui
+      #state_card_mode: badges
       friendly_name: Disk Used
-      templates:
-        theme: >
-          if (state > 80) {
-            return 'hot';
-          } else if (state >= 50 ) {
-            return 'warm';
-          } else {
-            return 'cold';
-          }
+      #templates:
+        #theme: >
+          #if (state > 80) {
+          #  return 'hot';
+          #} else if (state >= 50 ) {
+          #  return 'warm';
+          #} else {
+          #  return 'cold';
+          #}
       

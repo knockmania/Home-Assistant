@@ -1,0 +1,53 @@
+####################################################
+#                                                  #
+#                       Covers                     #
+#                                                  #
+####################################################
+
+  - platform: template
+    covers:
+      south:
+        friendly_name: Panorama
+        position_template: "{{ 20 }}"
+        open_cover:
+          service: script.south_cover_open
+        close_cover:
+          service: script.south_cover_close
+        stop_cover:
+          service: script.south_cover_stop
+      balcony:
+        friendly_name: Balcony
+        position_template: "{{ 20 }}"
+        open_cover:
+          service: script.balcony_cover_open
+        close_cover:
+          service: script.balcony_cover_close
+        stop_cover:
+          service: script.balcony_cover_stop
+      kitchen:
+        friendly_name: Kitchen
+        position_template: "{{ 20 }}"
+        open_cover:
+          service: script.kitchen_cover_open
+        close_cover:
+          service: script.kitchen_cover_close
+        stop_cover:
+          service: script.kitchen_cover_stop
+      closet:
+        friendly_name: Closet
+        position_template: "{{ 20 }}"
+        open_cover:
+          service: script.closet_cover_open
+        close_cover:
+          service: script.closet_cover_close
+        stop_cover:
+          service: script.closet_cover_stop
+      bedroom:
+        friendly_name: Bedroom
+        position_template: "{{ 20 }}"
+        open_cover:
+          service: script.bedroom_cover_open
+        close_cover:
+          service: script.bedroom_cover_close
+        stop_cover:
+          service: script.bedroom_cover_stop

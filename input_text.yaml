@@ -3,3 +3,15 @@
 #                     INPUT TEXT                   #
 #                                                  #
 ####################################################
+
+  sensors_lr:
+    name: Sensors Living / Kitchen
+
+  sensors_hall:
+    name: Sensors Hall
+
+  sensors_bedroom:
+    name: Sensors Bedroom
+
+  sensors_closet:
+    name: Sensors Closet
